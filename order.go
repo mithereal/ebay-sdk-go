@@ -2,11 +2,6 @@ package ebay
 
 
 type GetOrdersRequest struct {
-	
-	type	RequesterCredentials = struct {
-		eBayAuthToken string
-		}
-		
 		CreateTimeFrom   string
 		CreateTimeTo   string
 		IncludeFinalValueFee    string        
@@ -24,14 +19,18 @@ type GetOrdersRequest struct {
 		Version string
 		WarningLevel string
 		
+		
+	} 
+	
+type	RequesterCredentials struct {
+		eBayAuthToken string
+		}
 
-	type	Pagination  = struct {
+type	Pagination   struct {
 		EntriesPerPage string
 		PageNumber string
 		}
 		
-	type	OrderIDArray = struct {
+type	OrderIDArray  struct {
 		OrderID string
 		}	
-		
-	} 
