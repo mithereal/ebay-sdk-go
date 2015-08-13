@@ -16,7 +16,7 @@ const (
 
 var (
   verbose = kingpin.Flag("verbose", "Verbose mode.").Short('v').Bool()
-  listingtype    = kingpin.Flag("listingtype", "Type of listing (Auction).").Short('t').Required().String()
+  listingtype    = kingpin.Flag("listingtype", "Type of listing (Auction).").Short('t').String()
 )
 
 func main() {
@@ -25,9 +25,15 @@ func main() {
   //colour.Printf(" %v,  %s\n", *verbose, *listingtype)
   
    OrdersRequest := ebay.GetOrdersRequest  {
-	   Xmlns:           "urn:ebay:apis:eBLBaseComponents",
-	   ListingType:  *listingtype,
+    Xmlns:           "urn:ebay:apis:eBLBaseComponents",
+    ListingType:  *listingtype,
+    CreateTimeFrom:   "2007-12-01T20:34:44.000Z" ,
+    CreateTimeTo:   "2007-12-10T20:34:44.000Z",
+	OrderRole:   "Seller" ,
+	OrderStatus:   "Completed" ,
+
    }
+   
    OrdersRequest.RequesterCredentials.SetToken("token")
 
 xml,_ := xml.Marshal(OrdersRequest)
@@ -39,7 +45,7 @@ req := goreq.Request{
     Body: xml,
     ContentType: "application/xml; charset=utf-8",
     UserAgent: "go-ebay-fetchorders",
-    ShowDebug:   false,
+    ShowDebug:   true,
 	}
 	
 	req.AddHeader("Accept", "application/xml,application/xhtml+xml")
