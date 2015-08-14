@@ -11,6 +11,8 @@ import "bytes"
 const (
         
         Version = "1.0"
+		EbayApiVersion = "933"
+		EbayAppId =""
 		Token = ""
         
 )
@@ -33,7 +35,7 @@ func main() {
 		CreateTimeTo:   "2007-12-10T20:34:44.000Z",
 		OrderRole:      "Seller",
 		OrderStatus:    "Completed",
-		Version:        "933",
+		Version:        EbayApiVersion,
    }
    
 OrdersRequest.RequesterCredentials.SetToken(Token)
@@ -51,6 +53,13 @@ req := goreq.Request{
     UserAgent: "go-ebay-fetch-orders",
     ShowDebug:   true,
 	}
+	
+	req.AddHeader("X-EBAY-API-CALL-NAME", "GetOrdersRequest")
+	req.AddHeader("X-EBAY-API-APP-ID", EbayAppId)
+	req.AddHeader("X-EBAY-API-VERSION", EbayApiVersion)
+	req.AddHeader("X-EBAY-API-REQUEST-ENCODING", "XML")
+	req.AddHeader("X-EBAY-API-RESPONSE-ENCODING", "XML")
+	req.AddHeader("X-EBAY-API-SITE-ID", "0")
 	
 	req.AddHeader("Accept", "application/xml,application/xhtml+xml")
 	req.AddHeader("X-Powered-By", "go-ebay (https://goo.gl/Zi7RMK)")
