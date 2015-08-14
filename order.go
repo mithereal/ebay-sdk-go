@@ -4,7 +4,7 @@ package ebay
 type GetOrdersRequest struct {
 		Xmlns           string `xml:"xmlns,attr"`
 	
-		RequesterCredentials 
+		RequesterCredentials RequesterCredentials 
 
 		CreateTimeFrom   string 
 		CreateTimeTo   string
@@ -23,8 +23,8 @@ type GetOrdersRequest struct {
 		Version string 
 		WarningLevel string 
 		
-		Pagination
-		OrderIDArray
+		Pagination Pagination
+		OrderIDArray OrderIDArray
 	} 
 	
 
@@ -45,5 +45,14 @@ func (p *Pagination) Setpagination(entriesperpage,pagenumber string) {
 func (o *OrderIDArray) Getorderd(orderid string) {
     o.OrderID = orderid
     
+}
+
+
+type	RequesterCredentials struct {
+		eBayAuthToken string 
+		}
+		
+func (r *RequesterCredentials) SetToken(token string) {
+    r.eBayAuthToken = token
 }
 
