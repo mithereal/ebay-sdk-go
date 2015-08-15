@@ -28,3 +28,10 @@ func NewConfig(cfgName string) (error, *Config) {
 	return nil, &cfg
 }
 
+type RequesterCredentials struct {
+	eBayAuthToken string
+}
+
+func (r *RequesterCredentials) SetToken(token string) {
+	r.eBayAuthToken = token
+}
