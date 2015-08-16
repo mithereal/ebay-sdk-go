@@ -15,7 +15,7 @@ type GetOrdersRequest struct {
 	OrderRole   string
 	OrderStatus string
 	//	SortingOrder         string
-	//	DetailLevel          string
+	DetailLevel string
 	//	ErrorLanguage        string
 	//	MessageID            string
 	//	OutputSelector       string
@@ -26,13 +26,18 @@ type GetOrdersRequest struct {
 }
 
 type GetOrdersRequestResponse struct {
-	Xmlns         string `xml:"xmlns,attr"`
-	Timestamp     string
-	Ack           string
-	Build         string
-	Errors        Errors
-	HasMoreOrders bool
+	Xmlns                    string `xml:"xmlns,attr"`
+	Timestamp                string
+	Ack                      string
+	Build                    string
+	Errors                   Errors
+	HasMoreOrders            bool
+	ReturnedOrderCountActual int
+	CorrelationID            string
+	HardExpirationWarning    string
+
 	Pagination
+	OrderArray OrderArray
 }
 
 type Pagination struct {
@@ -44,8 +49,40 @@ type Pagination struct {
 }
 
 type OrderIDArray struct {
-	OrderID string
+	OrderID     string
+	BuyerUserID string
 }
+
+type OrderArray struct {
+	Order Order
+}
+
+type Order struct {
+	BuyerCheckoutMessage string
+	AmountSaved          string
+	BuyerPackageEnclosure
+	BuyerTaxIdentifier
+	BuyerUserID string
+	CancelDetail
+	CancelReasonDetails string
+	CancelStatus        string
+	CheckoutStatus
+}
+
+type BuyerPackageEnclosure struct {
+	BuyerPackageEnclosureType string
+}
+type BuyerTaxIdentifier struct{}
+
+type CancelDetail struct {
+	CancelCompleteDate  string
+	CancelIntiationDate string
+	CancelIntiator      string
+	CancelReason        string
+	CancelReasonDetails string
+}
+
+type CheckoutStatus struct{}
 
 func (p *Pagination) Setpagination(entriesperpage, pagenumber string) {
 	p.EntriesPerPage = entriesperpage
