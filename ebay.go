@@ -19,8 +19,10 @@ type ErrorMessage struct {
 }
 
 type Errors struct {
-	XmlName xml.Name `xml:"Errors"`
-	Error   Error    `xml:"error"`
+	XmlName      xml.Name `xml:"Errors"`
+	ShortMessage string   `xml:"ShortMessage"`
+	LongMessage  string   `xml:"LongMessage"`
+	ErrorCode    string   `xml:"ErrorCode"`
 }
 
 type Error struct {

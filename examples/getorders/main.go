@@ -1,12 +1,12 @@
 package main
 
 import "github.com/mithereal/go-ebay"
-import "github.com/davecgh/go-spew/spew"
 import "github.com/franela/goreq"
 import "github.com/alecthomas/colour"
 import "gopkg.in/alecthomas/kingpin.v2"
 import "encoding/xml"
 import "bytes"
+import "io/ioutil"
 import "os"
 
 const (
@@ -37,7 +37,6 @@ func main() {
 		RequesterCredentials: Credentials,
 	}
 
-	//reqxml, err := xml.Marshal(OrdersRequest)
 	reqxml, err := xml.MarshalIndent(OrdersRequest, "  ", "    ")
 
 	if err != nil {
@@ -53,7 +52,7 @@ func main() {
 		Body:        body,
 		ContentType: "application/xml; charset=utf-8",
 		UserAgent:   "go-ebay-fetch-orders",
-		ShowDebug:   true,
+		ShowDebug:   false,
 	}
 
 	req.AddHeader("X-EBAY-API-CALL-NAME", "GetOrders")
@@ -65,7 +64,6 @@ func main() {
 	req.AddHeader("X-EBAY-API-REQUEST-ENCODING", "XML")
 	req.AddHeader("X-EBAY-API-RESPONSE-ENCODING", "XML")
 	req.AddHeader("X-EBAY-API-SITEID", "0")
-	req.AddHeader("X-EBAY-TOKEN", Token)
 	req.AddHeader("X-EBAY-API-COMPATIBILITY-LEVEL HTTP", EbayApiVersion)
 
 	req.AddHeader("Accept", "application/xml,application/xhtml+xml")
@@ -79,17 +77,22 @@ func main() {
 		return
 	}
 
-	var response ebay.GetOrdersRequestResponse
+	data, err := ioutil.ReadAll(res.Body)
 
-	//ebayResponse, _ := xml.Unmarshalres.Body, &response)
-
-	e := response.Errors
-
-	if e.Error.Message != "" {
-		colour.Println("^1 ERROR - response: " + e.Error.Message)
+	if err != nil {
+		colour.Println("^1 ERROR - ioutil.ReadAll : " + err.Error())
 		return
 	}
 
-	//spew.Dump(res.Body.ToString())
-	spew.Dump(res.Body.ToString())
+	var response ebay.GetOrdersRequestResponse
+
+	xml.Unmarshal(data, &response)
+
+	e := response.Errors
+
+	if e.ShortMessage != "" {
+		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.ShortMessage)
+		return
+	}
+
 }
