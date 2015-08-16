@@ -8,8 +8,8 @@ type GetOrdersRequest struct {
 	CreateTimeFrom       string
 	CreateTimeTo         string
 	IncludeFinalValueFee string
-	//	ListingType          string
-	//	ModTimeFrom          string
+	//  ListingType          string
+	//  ModTimeFrom string
 	//	ModTimeTo            string
 	//	NumberOfDays         string
 	OrderRole   string
@@ -26,15 +26,21 @@ type GetOrdersRequest struct {
 }
 
 type GetOrdersRequestResponse struct {
-	Xmlns     string `xml:"xmlns,attr"`
-	Timestamp string
-	Ack       string
-	Errors    Errors
+	Xmlns         string `xml:"xmlns,attr"`
+	Timestamp     string
+	Ack           string
+	Build         string
+	Errors        Errors
+	HasMoreOrders bool
+	Pagination
 }
 
 type Pagination struct {
-	EntriesPerPage string
-	PageNumber     string
+	EntriesPerPage       string
+	OrdersPerPage        string
+	PageNumber           string
+	TotalNumberOfEntries int
+	TotalNumberOfPages   int
 }
 
 type OrderIDArray struct {

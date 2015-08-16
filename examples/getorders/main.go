@@ -3,9 +3,9 @@ package main
 import "github.com/mithereal/go-ebay"
 import "github.com/franela/goreq"
 import "github.com/alecthomas/colour"
+import "github.com/davecgh/go-spew/spew"
 import "gopkg.in/alecthomas/kingpin.v2"
 import "encoding/xml"
-import "bytes"
 import "io/ioutil"
 import "os"
 
@@ -26,7 +26,6 @@ func main() {
 	Credentials := ebay.RequesterCredentials{
 		RequestToken: Token,
 	}
-	//Credentials.SetToken(Token)
 
 	OrdersRequest := ebay.GetOrdersRequest{
 		Xmlns:                "urn:ebay:apis:eBLBaseComponents",
@@ -46,15 +45,17 @@ func main() {
 		return
 	}
 
-	body := bytes.NewBuffer(reqxml)
-	// <?xml version="1.0" encoding="utf-8"?> needs to be added to body
+	xmldec := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+
+	body := append(xmldec, reqxml...)
+
 	req := goreq.Request{
 		Method:      "POST",
 		Uri:         "https://api.ebay.com/ws/api.dll",
 		Body:        body,
 		ContentType: "application/xml; charset=utf-8",
 		UserAgent:   "go-ebay-fetch-orders",
-		ShowDebug:   true,
+		ShowDebug:   false,
 	}
 
 	req.AddHeader("X-EBAY-API-CALL-NAME", "GetOrders")
@@ -96,5 +97,5 @@ func main() {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
 		return
 	}
-
+	spew.Dump(response)
 }
