@@ -29,7 +29,7 @@ func NewConfig(cfgName string) (error, *Config) {
 }
 
 type RequesterCredentials struct {
-	eBayAuthToken string
+	eBayAuthToken string `xml:"eBayAuthToken"`
 }
 
 func (r *RequesterCredentials) SetToken(token string) {

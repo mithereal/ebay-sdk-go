@@ -3,27 +3,27 @@ package ebay
 type GetOrdersRequest struct {
 	Xmlns string `xml:"xmlns,attr"`
 
-	RequesterCredentials RequesterCredentials
+	RequesterCredentials RequesterCredentials `xml:"RequesterCredentials"`
 
 	CreateTimeFrom       string
 	CreateTimeTo         string
 	IncludeFinalValueFee string
-	ListingType          string
-	ModTimeFrom          string
-	ModTimeTo            string
-	NumberOfDays         string
-	OrderRole            string
-	OrderStatus          string
-	SortingOrder         string
-	DetailLevel          string
-	ErrorLanguage        string
-	MessageID            string
-	OutputSelector       string
-	Version              string
-	WarningLevel         string
+	//	ListingType          string
+	//	ModTimeFrom          string
+	//	ModTimeTo            string
+	//	NumberOfDays         string
+	OrderRole   string
+	OrderStatus string
+	//	SortingOrder         string
+	//	DetailLevel          string
+	//	ErrorLanguage        string
+	//	MessageID            string
+	//	OutputSelector       string
+	Version string
+	//	WarningLevel         string
 
-	Pagination
-	OrderIDArray
+	//	Pagination
+	//	OrderIDArray
 }
 
 type GetOrdersRequestResponse struct {
