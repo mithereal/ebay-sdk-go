@@ -21,7 +21,6 @@ type GetOrdersRequest struct {
 	//	OutputSelector       string
 	Version string
 	//	WarningLevel         string
-
 	//	Pagination
 	//	OrderIDArray
 }

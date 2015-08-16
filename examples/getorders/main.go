@@ -23,8 +23,10 @@ func main() {
 	EbayCertName := os.Getenv("EBAY_CERT_ID")
 	Token := os.Getenv("EBAY_TOKEN")
 
-	Credentials := ebay.RequesterCredentials{}
-	Credentials.SetToken(Token)
+	Credentials := ebay.RequesterCredentials{
+		RequestToken: Token,
+	}
+	//Credentials.SetToken(Token)
 
 	OrdersRequest := ebay.GetOrdersRequest{
 		Xmlns:                "urn:ebay:apis:eBLBaseComponents",
@@ -37,7 +39,7 @@ func main() {
 		RequesterCredentials: Credentials,
 	}
 
-	reqxml, err := xml.MarshalIndent(OrdersRequest, "  ", "    ")
+	reqxml, err := xml.Marshal(OrdersRequest)
 
 	if err != nil {
 		colour.Println("^1 ERROR - xml.Marshal : " + err.Error())
@@ -45,14 +47,14 @@ func main() {
 	}
 
 	body := bytes.NewBuffer(reqxml)
-
+	// <?xml version="1.0" encoding="utf-8"?> needs to be added to body
 	req := goreq.Request{
 		Method:      "POST",
 		Uri:         "https://api.ebay.com/ws/api.dll",
 		Body:        body,
 		ContentType: "application/xml; charset=utf-8",
 		UserAgent:   "go-ebay-fetch-orders",
-		ShowDebug:   false,
+		ShowDebug:   true,
 	}
 
 	req.AddHeader("X-EBAY-API-CALL-NAME", "GetOrders")
@@ -91,7 +93,7 @@ func main() {
 	e := response.Errors
 
 	if e.ShortMessage != "" {
-		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.ShortMessage)
+		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
 		return
 	}
 

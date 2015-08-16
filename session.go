@@ -29,9 +29,9 @@ func NewConfig(cfgName string) (error, *Config) {
 }
 
 type RequesterCredentials struct {
-	eBayAuthToken string `xml:"eBayAuthToken"`
+	RequestToken string `xml:"eBayAuthToken"`
 }
 
 func (r *RequesterCredentials) SetToken(token string) {
-	r.eBayAuthToken = token
+	r.RequestToken = token
 }
