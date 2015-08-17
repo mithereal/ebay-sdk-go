@@ -23,13 +23,8 @@ func main() {
 
 	Config, _ := ebay.NewConfig(path.Join(usr.HomeDir, ".ebayapi"))
 
-	EbayAppId := Config.AppID
-	EbayDevName := Config.DevID
-	EbayCertName := Config.CertID
-	Token := Config.Token
-
 	Credentials := ebay.RequesterCredentials{
-		RequestToken: Token,
+		RequestToken: Config.Token,
 	}
 
 	OrdersRequest := ebay.GetOrdersRequest{
@@ -65,9 +60,9 @@ func main() {
 	}
 
 	req.AddHeader("X-EBAY-API-CALL-NAME", "GetOrders")
-	req.AddHeader("X-EBAY-API-DEV-NAME", EbayDevName)
-	req.AddHeader("X-EBAY-API-CERT-NAME", EbayCertName)
-	req.AddHeader("X-EBAY-API-APP-NAME", EbayAppId)
+	req.AddHeader("X-EBAY-API-DEV-NAME", Config.DevID)
+	req.AddHeader("X-EBAY-API-CERT-NAME", Config.CertID)
+	req.AddHeader("X-EBAY-API-APP-NAME", Config.AppID)
 	req.AddHeader("X-EBAY-API-VERSION", EbayApiVersion)
 	req.AddHeader("X-EBAY-API-COMPATIBILITY-LEVEL", EbayApiVersion)
 	req.AddHeader("X-EBAY-API-REQUEST-ENCODING", "XML")
