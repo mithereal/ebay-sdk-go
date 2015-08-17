@@ -1,12 +1,7 @@
 package ebay
 
 import (
-	//"fmt"
 	"encoding/xml"
-	//"strconv"
-	//"net/url"
-	//"errors"
-	//"github.com/franela/goreq"
 )
 
 const (

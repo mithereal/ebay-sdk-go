@@ -13,18 +13,25 @@ type Config struct {
 	Token  string `json:"Token"`  // Token
 }
 
-func NewConfig(cfgName string) (error, *Config) {
+func NewConfig(cfgName string) (*Config, error) {
 	cfgFile, err := os.Open(cfgName)
 	if err != nil {
-		return err, nil
+		cfg := Config{
+			AppID:  os.Getenv("EBAY_APP_ID"),
+			DevID:  os.Getenv("EBAY_DEV_ID"),
+			CertID: os.Getenv("EBAY_CERT_ID"),
+			Token:  os.Getenv("EBAY_TOKEN"),
+		}
+		return &cfg, nil
+
 	}
 	decoder := json.NewDecoder(cfgFile)
 	cfg := Config{}
 	err = decoder.Decode(&cfg)
 	if err != nil {
-		return err, nil
+		return nil, err
 	}
-	return nil, &cfg
+	return &cfg, nil
 }
 
 type RequesterCredentials struct {
