@@ -72,7 +72,11 @@ type Order struct {
 type BuyerPackageEnclosure struct {
 	BuyerPackageEnclosureType string
 }
-type BuyerTaxIdentifier struct{}
+type BuyerTaxIdentifier struct {
+	Attribute string
+	ID        string
+	Type      string
+}
 
 type CancelDetail struct {
 	CancelCompleteDate  string
