@@ -11,7 +11,7 @@ import "os"
 
 const (
 	Version        = "1.0"
-	EbayApiVersion = "933"
+	EbayApiVersion = "935"
 )
 
 func main() {
@@ -29,8 +29,9 @@ func main() {
 
 	OrdersRequest := ebay.GetOrdersRequest{
 		Xmlns:                "urn:ebay:apis:eBLBaseComponents",
-		CreateTimeFrom:       "2015-08-13T20:34:44.000Z",
-		CreateTimeTo:         "2015-08-14T20:34:44.000Z",
+		CreateTimeFrom:       *createtimefrom,
+		CreateTimeTo:         *createtimeto,
+		DetailLevel:          "ReturnAll",
 		OrderRole:            "Seller",
 		IncludeFinalValueFee: "true",
 		OrderStatus:          "Completed",
@@ -38,16 +39,16 @@ func main() {
 		RequesterCredentials: Credentials,
 	}
 
-	reqxml, err := xml.Marshal(OrdersRequest)
+	OrdersXml, err := xml.Marshal(OrdersRequest)
 
 	if err != nil {
 		colour.Println("^1 ERROR - xml.Marshal : " + err.Error())
 		return
 	}
 
-	xmldec := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+	xmlheader := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
 
-	body := append(xmldec, reqxml...)
+	body := append(xmlheader, OrdersXml...)
 
 	req := goreq.Request{
 		Method:      "POST",
@@ -87,15 +88,16 @@ func main() {
 		return
 	}
 
-	var response ebay.GetOrdersRequestResponse
+	var Response ebay.GetOrdersRequestResponse
 
-	xml.Unmarshal(data, &response)
+	xml.Unmarshal(data, &Response)
 
-	e := response.Errors
+	e := Response.Errors
 
 	if e.ShortMessage != "" {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
 		return
 	}
-	spew.Dump(response)
+
+	spew.Dump(Response)
 }

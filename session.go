@@ -6,12 +6,11 @@ import (
 )
 
 type Config struct {
-	AppID     string `json:"appID"`       // Application ID
-	CertID    string `json:"certID"`      // Application Certification
-	DevID     string `json:"devID"`       // Developer ID
-	RuName    string `json:"ruName"`      // RuName
-	Endpoint  string `json:"ApiEndpoint"` // API Endpoint to use
-	IsSandbox bool   `json:"isSandbox"`   // List if channels the bot will join after the connect
+	AppID  string `json:"appID"`  // Application ID
+	CertID string `json:"certID"` // Application Certification
+	DevID  string `json:"devID"`  // Developer ID
+	RuName string `json:"ruName"` // RuName
+	Token  string `json:"Token"`  // Token
 }
 
 func NewConfig(cfgName string) (error, *Config) {
