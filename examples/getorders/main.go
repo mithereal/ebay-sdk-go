@@ -7,7 +7,8 @@ import "github.com/davecgh/go-spew/spew"
 import "gopkg.in/alecthomas/kingpin.v2"
 import "encoding/xml"
 import "io/ioutil"
-import "os"
+import "os/user"
+import "path"
 
 const (
 	Version        = "1.0"
@@ -18,10 +19,14 @@ func main() {
 
 	kingpin.Parse()
 
-	EbayAppId := os.Getenv("EBAY_APP_ID")
-	EbayDevName := os.Getenv("EBAY_DEV_ID")
-	EbayCertName := os.Getenv("EBAY_CERT_ID")
-	Token := os.Getenv("EBAY_TOKEN")
+	usr, err := user.Current()
+
+	Config, _ := ebay.NewConfig(path.Join(usr.HomeDir, ".ebayapi"))
+
+	EbayAppId := Config.AppID
+	EbayDevName := Config.DevID
+	EbayCertName := Config.CertID
+	Token := Config.Token
 
 	Credentials := ebay.RequesterCredentials{
 		RequestToken: Token,
