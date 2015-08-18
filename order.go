@@ -67,11 +67,103 @@ type Order struct {
 	CancelReasonDetails string
 	CancelStatus        string
 	CheckoutStatus
+	ContainseBayPlusTransaction bool
+	CreatedTime                 string
+	CreatingUserRole            string
+	EIASToken                   string
+	ExtendedOrderID             string
+	ExternalTransaction
+	IntegratedMerchantCreditCardEnabled string
+	IsMultiLegShipping                  string
+	LogisticsPlanType                   string
+	MonetaryDetails
+	OrderID     string
+	OrderStatus string
+	PaidTime    string
+}
+type RequiredSellerActionArray struct {
+	RequiredSellerAction
+}
+type PaymentHoldDetails struct {
+	ExpectedReleaseDate
+	NumOfReqSellerActions
+	PaymentHoldReason
+	RequiredSellerActionArray
+}
+type ShipToAddress struct {
+	AddressAttribute  string
+	AddressID         string
+	AddressOwner      string
+	CityName          string
+	Country           string
+	CountryName       string
+	ExternalAddressID string
+	Name              string
+	Phone             string
+	PostalCode        string
+	ReferenceID       string
+	StateOrProvince   string
+	Street1           string
+	Street2           string
+}
+type SellerShipmentToLogisticsProvider struct {
+	ShippingServiceDetails
+	ShipToAddress
+}
+type ShippingServiceDetails struct {
+	ShippingService   string
+	TotalShippingCost string
+}
+type MultiLegShippingDetails struct {
+	SellerShipmentToLogisticsProvider
+	ShippingTimeMax int
+	ShippingTimeMin int
+	ShipToAddress
+}
+type MonetaryDetails struct {
+	Payments
+	Refunds
 }
 
+type Payments struct {
+	Payment
+}
+
+type Refunds struct {
+	Refund
+}
+type Refund struct {
+	FeeOrCreditAmount string
+	ReferenceID       string
+	RefundAmount      string
+	RefundStatus      string
+	RefundTime        string
+	RefundTo          string
+	RefundType        string
+}
+
+type Payment struct {
+	FeeOrCreditAmount  string
+	Payee              string
+	Payer              string
+	PaymentAmount      string
+	PaymentReferenceID string
+	PaymentStatus      string
+	PaymentTime        string
+	ReferenceID        string
+}
+
+type ExternalTransaction struct {
+	ExternalTransactionID     string
+	ExternalTransactionStatus string
+	ExternalTransactionTime   string
+	FeeOrCreditAmount         string
+	PaymentOrRefundAmount     string
+}
 type BuyerPackageEnclosure struct {
 	BuyerPackageEnclosureType string
 }
+
 type BuyerTaxIdentifier struct {
 	Attribute string
 	ID        string
