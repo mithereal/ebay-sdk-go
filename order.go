@@ -56,6 +56,10 @@ type OrderIDArray struct {
 type OrderArray struct {
 	Order Order
 }
+type PickupOptions struct {
+	PickupMethod   string
+	PickupPriority string
+}
 
 type Order struct {
 	BuyerCheckoutMessage string
@@ -80,14 +84,23 @@ type Order struct {
 	OrderID     string
 	OrderStatus string
 	PaidTime    string
+	PaymentHoldDetails
+	PaymentHoldStatus string
+	PaymentMethods    string
+	PickupDetails
 }
+type PickupMethodSelected struct{}
+type PickupDetails struct {
+	PickupOptions
+}
+
 type RequiredSellerActionArray struct {
 	RequiredSellerAction
 }
 type PaymentHoldDetails struct {
-	ExpectedReleaseDate
-	NumOfReqSellerActions
-	PaymentHoldReason
+	ExpectedReleaseDate   string
+	NumOfReqSellerActions string
+	PaymentHoldReason     string
 	RequiredSellerActionArray
 }
 type ShipToAddress struct {
