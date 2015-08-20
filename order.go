@@ -89,7 +89,15 @@ type Order struct {
 	PaymentMethods    string
 	PickupDetails
 }
-type PickupMethodSelected struct{}
+type PickupMethodSelected struct {
+	MerchantPickupCode    string
+	PickupFulfillmentTime string
+	PickupLocationUUID    string
+	PickupMethod          string
+	PickupStatus          string
+	PickupStoreID         string
+}
+type RefundArray struct{}
 type PickupDetails struct {
 	PickupOptions
 }
