@@ -54,7 +54,7 @@ type OrderIDArray struct {
 }
 
 type OrderArray struct {
-	Order Order
+	Order []Order
 }
 type PickupOptions struct {
 	PickupMethod   string
@@ -103,7 +103,7 @@ type PickupDetails struct {
 }
 
 type RequiredSellerActionArray struct {
-	RequiredSellerAction
+	RequiredSellerAction string
 }
 type PaymentHoldDetails struct {
 	ExpectedReleaseDate   string
@@ -147,7 +147,7 @@ type MonetaryDetails struct {
 }
 
 type Payments struct {
-	Payment
+	Payment []Payment
 }
 
 type Refunds struct {
