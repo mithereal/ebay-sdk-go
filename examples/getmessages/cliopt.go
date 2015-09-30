@@ -44,6 +44,6 @@ var (
 	MessageID = kingpin.Flag("MessageID", "Message ID.").Short('m').String()
 	OutputSelector = kingpin.Flag("OutputSelector", ".").Short('o').String()
 
-	ItemID = kingpin.Flag("ItemID", ".").Short('s').String()
+	ItemID = kingpin.Flag("ItemID", ".").Short('i').String()
 	
 )
