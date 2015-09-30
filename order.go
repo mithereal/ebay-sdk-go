@@ -21,7 +21,7 @@ type GetOrdersRequest struct {
 	//	OutputSelector       string
 	Version string
 	//	WarningLevel         string
-	//	Pagination
+	//	Pagination  		Pagination
 	//	OrderIDArray
 }
 
@@ -40,14 +40,6 @@ type GetOrdersRequestResponse struct {
 	OrderArray OrderArray
 }
 
-type Pagination struct {
-	EntriesPerPage       string
-	OrdersPerPage        string
-	PageNumber           string
-	TotalNumberOfEntries int
-	TotalNumberOfPages   int
-}
-
 type OrderIDArray struct {
 	OrderID     string
 	BuyerUserID string
@@ -55,10 +47,6 @@ type OrderIDArray struct {
 
 type OrderArray struct {
 	Order []Order
-}
-type PickupOptions struct {
-	PickupMethod   string
-	PickupPriority string
 }
 
 type Order struct {
@@ -97,6 +85,11 @@ type PickupMethodSelected struct {
 	PickupStatus          string
 	PickupStoreID         string
 }
+type PickupOptions struct {
+	PickupMethod   string
+	PickupPriority string
+}
+
 type RefundArray struct{}
 type PickupDetails struct {
 	PickupOptions
@@ -201,10 +194,7 @@ type CancelDetail struct {
 
 type CheckoutStatus struct{}
 
-func (p *Pagination) Setpagination(entriesperpage, pagenumber string) {
-	p.EntriesPerPage = entriesperpage
-	p.PageNumber = pagenumber
-}
+
 
 func (o *OrderIDArray) GetOrderId(orderid string) {
 	o.OrderID = orderid

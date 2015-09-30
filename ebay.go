@@ -36,9 +36,39 @@ type EBay struct {
 	ApplicationId string
 }
 
+type Item struct {
+	ItemITitleD string
+	ItemID string
+	ListingDetails 
+	SellingStatus 
+}
+
+type ListingDetails struct {
+	EndTime       string
+	StartTime       string
+	}
+
+type SellingStatus struct {
+	CurrentPrice       string
+	}
+
+type Pagination struct {
+	EntriesPerPage       string
+	OrdersPerPage        string
+	PageNumber           string
+	TotalNumberOfEntries int
+	TotalNumberOfPages   int
+}
+
+	
 func New(application_id string) *EBay {
 	e := EBay{}
 	e.ApplicationId = application_id
 
 	return &e
+}
+
+func (p *Pagination) Setpagination(entriesperpage, pagenumber string) {
+	p.EntriesPerPage = entriesperpage
+	p.PageNumber = pagenumber
 }

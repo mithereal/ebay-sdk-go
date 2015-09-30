@@ -99,5 +99,5 @@ func main() {
 		return
 	}
 
-	spew.Dump(Response)
+	spew.Dump(Response.OrderArray)
 }
