@@ -28,7 +28,7 @@ cd to $gopath/bin
 
 ./ebayfetchorders -s 2015-07-16T20:34:44 -e 2015-08-14T20:34:44
 
-Copy ebayfetchorders to bin
+Copy ebaygetorders to bin
 
 Follow the same for other examples
  
