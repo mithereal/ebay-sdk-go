@@ -3,12 +3,13 @@ package main
 import "github.com/mithereal/go-ebay"
 import "github.com/franela/goreq"
 import "github.com/alecthomas/colour"
-import "github.com/davecgh/go-spew/spew"
+//import "github.com/davecgh/go-spew/spew"
 import "gopkg.in/alecthomas/kingpin.v2"
 import "encoding/xml"
 import "io/ioutil"
 import "os/user"
 import "path"
+import "strconv"
 
 const (
 	Version        = "1.0"
@@ -26,6 +27,7 @@ func main() {
 	Credentials := ebay.RequesterCredentials{
 		RequestToken: Config.Token,
 	}
+
 
 	OrdersRequest := ebay.GetOrdersRequest{
 		Xmlns:                "urn:ebay:apis:eBLBaseComponents",
@@ -88,9 +90,9 @@ func main() {
 		return
 	}
 
-	var Response ebay.GetOrdersRequestResponse
+ Response := ebay.GetOrdersRequestResponse{}
 
-	xml.Unmarshal(data, &Response)
+ xml.Unmarshal(data, &Response)
 
 	e := Response.Errors
 
@@ -98,6 +100,34 @@ func main() {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
 		return
 	}
+	
+	
 
-	spew.Dump(Response.OrderArray)
+
+//spew.Dump(Response.Ack)
+
+switch Response.Ack {
+    case "Success":
+        colour.Printf(" ^6 Response: ^2" + Response.Ack +" ^R \n")
+		
+	//	 orderactualcount := strconv.Itoa(Response.ReturnedOrderCountActual)
+		 pagecount := strconv.Itoa(Response.Pagination.TotalNumberOfPages)
+		 pagenumber :=strconv.Itoa(Response.PageNumber + 1)
+		 totalentries := strconv.Itoa(Response.Pagination.TotalNumberOfEntries)
+		 hasMoreOrders := strconv.FormatBool(Response.HasMoreOrders)
+		
+
+ //       colour.Printf(" ^6 Order count: ^2" +  orderactualcount +" ^R \n")
+        colour.Printf(" ^6 Total Pages: ^2" +  pagecount +" ^R \n")
+        colour.Printf(" ^6 Current Page: ^2" +  pagenumber +" ^R \n")
+        colour.Printf(" ^6 Total entries: ^2" +  totalentries +" ^R \n")
+        colour.Printf(" ^6 Has more orders: ^2" +  hasMoreOrders +" ^R \n")
+        
+    case "Failure":
+        colour.Printf(" ^6 Response: ^1" + Response.Ack +" ^R ")
+    default:
+        colour.Printf(" ^6 Response: ^3" + Response.Ack +" ^R ")
+    }
+	
+	
 }
