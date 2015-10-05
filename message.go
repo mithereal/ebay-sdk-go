@@ -7,7 +7,7 @@ type GetMemberMessagesRequest struct {
 
 	DisplayToPublic   string
 	EndCreationTime   string
-	ItemID            string
+//	ItemID            string
 	MailMessageType   string
 	MemberMessageID   string
 	MessageStatus     string

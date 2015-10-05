@@ -29,15 +29,20 @@ type GetOrdersRequestResponse struct {
 	Xmlns                    string `xml:"xmlns,attr"`
 	Timestamp                string `xml:"Timestamp"`
 	Ack                      string `xml:"Ack"`
-	Build                    string
-	Errors                   Errors
-	HasMoreOrders            bool 
-	ReturnedOrderCountActual int
-	CorrelationID            string
-	HardExpirationWarning    string
+	Build                    string `xml:"Build"`
+	Errors                   Errors `xml:"Errors"`
+	HasMoreOrders            bool  `xml:"HasMoreOrders"`
+	
+	CorrelationID            string `xml:"CorrelationID"`
+	HardExpirationWarning    string `xml:"HardExpirationWarning"`
 
-	Pagination
-	OrderArray 
+	Pagination   Pagination `xml:"PaginationResult"`
+	OrderArray  OrderArray `xml:"OrderArray"`
+	
+	OrdersPerPage int `xml:"OrdersPerPage"`
+	PageNumber int `xml:"PageNumber"`
+	ReturnedOrderCountActual int `xml:"ReturnedOrderCountActual"`
+	
 }
 
 type Amount struct {
@@ -56,10 +61,12 @@ type OrderIDArray struct {
 }
 
 type OrderArray struct {
-	Order []Order `xml:"order"`
+	Order  []Order `xml:"Order"`
 }
 
 type Order struct {
+	OrderID     string `xml:"OrderID"`
+	OrderStatus string `xml:"OrderStatus"`
 	BuyerCheckoutMessage string
 	AmountSaved          string
 	BuyerPackageEnclosure
@@ -81,8 +88,6 @@ type Order struct {
 	LogisticsPlanType                   string
 	MonetaryDetails
 	MultiLegShippingDetails
-	OrderID     string
-	OrderStatus string
 	PaidTime    string
 	PaymentHoldDetails
 	PaymentHoldStatus string
