@@ -27,26 +27,36 @@ type GetOrdersRequest struct {
 
 type GetOrdersRequestResponse struct {
 	Xmlns                    string `xml:"xmlns,attr"`
-	Timestamp                string
-	Ack                      string
+	Timestamp                string `xml:"Timestamp"`
+	Ack                      string `xml:"Ack"`
 	Build                    string
 	Errors                   Errors
-	HasMoreOrders            bool
+	HasMoreOrders            bool 
 	ReturnedOrderCountActual int
 	CorrelationID            string
 	HardExpirationWarning    string
 
 	Pagination
-	OrderArray OrderArray
+	OrderArray 
 }
 
+type Amount struct {
+	}
+type BuyerPackageEnclosures struct {
+	}
+type PaymentInstructionCode struct {
+	}
+type TaxIdentifierAttributeCode struct {
+	}
+type ValueTypeCode struct {
+	}
 type OrderIDArray struct {
 	OrderID     string
 	BuyerUserID string
 }
 
 type OrderArray struct {
-	Order []Order
+	Order []Order `xml:"order"`
 }
 
 type Order struct {
@@ -56,6 +66,7 @@ type Order struct {
 	BuyerTaxIdentifier
 	BuyerUserID string
 	CancelDetail
+	CancelReason string
 	CancelReasonDetails string
 	CancelStatus        string
 	CheckoutStatus
@@ -69,6 +80,7 @@ type Order struct {
 	IsMultiLegShipping                  string
 	LogisticsPlanType                   string
 	MonetaryDetails
+	MultiLegShippingDetails
 	OrderID     string
 	OrderStatus string
 	PaidTime    string
@@ -76,7 +88,25 @@ type Order struct {
 	PaymentHoldStatus string
 	PaymentMethods    string
 	PickupDetails
+	PickupMethodSelected
+	RefundArray
+	SellerEIASToken string
+	SellerEmail string
+	SellerUserID string
+	ShippedTime string
+//	ShippingAddress
+	ShippingConvenienceCharge string
+	ShippingDetails
+	ShippingServiceSelected string
+	Subtotal string
+	Total string
+	TransactionArray 
+	
+	
 }
+type TransactionArray struct {
+	}
+	
 type PickupMethodSelected struct {
 	MerchantPickupCode    string
 	PickupFulfillmentTime string
@@ -85,6 +115,72 @@ type PickupMethodSelected struct {
 	PickupStatus          string
 	PickupStoreID         string
 }
+type ShippingDetails struct {
+	CalculatedShippingRate
+	CODCost string
+	InsuranceFee string
+	InsuranceOption string
+	InsuranceWanted string
+	
+	InternationalShippingServiceOption
+	//SellingManagerSalesRecordNumber
+	ShipmentTrackingDetails
+	ShippingServiceOptions
+	TaxTable
+	
+	}
+	type TaxJurisdiction struct {
+		JurisdictionID string 
+            SalesTaxPercent string 
+            ShippingIncludedInTax string 
+	}
+	type TaxTable struct {
+		TaxJurisdiction
+	}
+	type ShippingPackageInfo struct {
+		ActualDeliveryTime string 
+            ScheduledDeliveryTimeMax string 
+            ScheduledDeliveryTimeMin string 
+            ShippingTrackingEvent string 
+            StoreID string 
+		}
+	type ShippingServiceOptions struct {
+		ExpeditedService string 
+          ImportCharge  string 
+          LogisticPlanType string 
+          ShippingInsuranceCost  string 
+          ShippingService string 
+          ShippingServiceAdditionalCost  string 
+          ShippingServiceCost string
+          ShippingServicePriority int 
+		}
+	type ShipmentTrackingDetails struct {
+		ShipmentTrackingNumber string 
+          ShippingCarrierUsed string 
+		}
+	type InternationalShippingServiceOption struct {
+		ImportCharge  string 
+          ShippingInsuranceCost string 
+          ShippingService string 
+          ShippingServiceAdditionalCost  string 
+          ShippingServiceCost string 
+          ShippingServicePriority int 
+          ShipToLocation string 
+		}
+	type CalculatedShippingRate struct {
+	InternationalPackagingHandlingCosts string
+	OriginatingPostalCode string
+	PackageDepth string
+	PackageLength string
+	PackageWidth string
+	PackagingHandlingCosts string
+	ShippingIrregular string
+	ShippingPackage string
+	WeightMajor string
+	WeightMinor string
+	
+	}
+
 type PickupOptions struct {
 	PickupMethod   string
 	PickupPriority string
@@ -123,6 +219,9 @@ type ShipToAddress struct {
 type SellerShipmentToLogisticsProvider struct {
 	ShippingServiceDetails
 	ShipToAddress
+	ShippingTimeMax int
+	ShippingTimeMin int
+	
 }
 type ShippingServiceDetails struct {
 	ShippingService   string
@@ -130,9 +229,7 @@ type ShippingServiceDetails struct {
 }
 type MultiLegShippingDetails struct {
 	SellerShipmentToLogisticsProvider
-	ShippingTimeMax int
-	ShippingTimeMin int
-	ShipToAddress
+
 }
 type MonetaryDetails struct {
 	Payments
@@ -154,7 +251,21 @@ type Refund struct {
 	RefundTime        string
 	RefundTo          string
 	RefundType        string
+	
+	//RefundAmount string
+	RefundFromSeller string
+//	RefundID string
+//	RefundStatus string
+//	RefundTime string
+	TotalRefundToBuyer string
 }
+
+type SalesTax struct {
+          SalesTaxAmount string
+          SalesTaxPercent string 
+          SalesTaxState string 
+          ShippingIncludedInTax string 
+	}
 
 type Payment struct {
 	FeeOrCreditAmount  string
@@ -192,7 +303,14 @@ type CancelDetail struct {
 	CancelReasonDetails string
 }
 
-type CheckoutStatus struct{}
+type CheckoutStatus struct{
+	eBayPaymentStatus string
+	IntegratedMerchantCreditCardEnabled  string
+	LastModifiedTime string
+	PaymentInstrument string
+	PaymentMethod string
+	Status string
+}
 
 
 
