@@ -38,7 +38,7 @@ type GetOrdersRequestResponse struct {
 	CorrelationID         string `xml:"CorrelationID"`
 	HardExpirationWarning string `xml:"HardExpirationWarning"`
 
-	Pagination  Pagination `xml:"PaginationResult"`
+	Paginations  Pagination `xml:"PaginationResult"`
 	OrdersArray OrderArray `xml:"OrderArray"`
 
 	OrdersPerPage            int `xml:"OrdersPerPage"`
@@ -68,52 +68,54 @@ type OrderArray struct {
 
 type Order struct {
 	XMLName                             xml.Name `xml:"Order"`
-	OrderID                             string   `xml:"OrderID"`
-	OrderStatus                         string   `xml:"OrderStatus"`
+	OrderID                             string
+	OrderStatus                         string
 	BuyerCheckoutMessage                string
 	AmountSaved                         string
-	BuyerPackageEnclosures              BuyerPackageEnclosure
-	BuyerTaxIdentifiers                 BuyerTaxIdentifier
+	BuyerPackageEnclosures              BuyerPackageEnclosure `xml:"BuyerPackageEnclosure"`
+	BuyerTaxIdentifiers                 BuyerTaxIdentifier `xml:"BuyerTaxIdentifier"`
 	BuyerUserID                         string
-	CancelDetails                       CancelDetail
+	CancelDetails                       CancelDetail `xml:"CancelDetail"`
 	CancelReason                        string
 	CancelReasonDetails                 string
 	CancelStatus                        string
-	CheckoutStatuss                     CheckoutStatus
+	CheckoutStatuss                     CheckoutStatus `xml:"CheckoutStatus"`
 	ContainseBayPlusTransaction         bool
 	CreatedTime                         string
 	CreatingUserRole                    string
 	EIASToken                           string
 	ExtendedOrderID                     string
-	ExternalTransactions                ExternalTransaction
+	ExternalTransactions                ExternalTransaction `xml:"ExternalTransaction"`
 	IntegratedMerchantCreditCardEnabled string
 	IsMultiLegShipping                  string
 	LogisticsPlanType                   string
-	MonetaryDetailss                    MonetaryDetails
-	MultiLegShippingDetailss            MultiLegShippingDetails
+	MonetaryDetailss                    MonetaryDetails `xml:"MonetaryDetails"`
+	MultiLegShippingDetailss            MultiLegShippingDetails `xml:"MultiLegShippingDetails"`
 	PaidTime                            string
-	PaymentHoldDetailss                 PaymentHoldDetails
+	PaymentHoldDetailss                 PaymentHoldDetails `xml:"PaymentHoldDetails"`
 	PaymentHoldStatus                   string
 	PaymentMethods                      string
-	PickupDetailss                      PickupDetails
+	PickupDetailss                      PickupDetails `xml:"PickupDetails"`
 	PickupMethodSelected
-	RefundArrays    RefundArray
+	RefundArrays    RefundArray `xml:"RefundArray"`
 	SellerEIASToken string
 	SellerEmail     string
 	SellerUserID    string
 	ShippedTime     string
 	//	ShippingAddress
 	ShippingConvenienceCharge string
-	ShippingDetailss          ShippingDetails
+	ShippingDetailss          ShippingDetails `xml:"ShippingDetails"`
 	ShippingServiceSelected   string
 	Subtotal                  string
 	Total                     string
-	TransactionArrays         TransactionArray
+	TransactionArrays         TransactionArray `xml:"TransactionArray"`
 }
 type TransactionArray struct {
+	XMLName                             xml.Name `xml:"TransactionArray"`
 }
 
 type PickupMethodSelected struct {
+	XMLName                             xml.Name `xml:"PickupMethodSelected"`
 	MerchantPickupCode    string
 	PickupFulfillmentTime string
 	PickupLocationUUID    string
@@ -202,9 +204,10 @@ type PaymentHoldDetails struct {
 	ExpectedReleaseDate   string
 	NumOfReqSellerActions string
 	PaymentHoldReason     string
-	RequiredSellerActionArray
+	RequiredSellerActionArrays  RequiredSellerActionArray
 }
 type ShipToAddress struct {
+	XMLName                             xml.Name `xml:"ShipToAddress"`
 	AddressAttribute  string
 	AddressID         string
 	AddressOwner      string
