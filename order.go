@@ -110,8 +110,12 @@ type Order struct {
 	Total                     string
 	TransactionArrays         TransactionArray `xml:"TransactionArray"`
 }
+type Transaction struct {
+
+}
 type TransactionArray struct {
 	XMLName                             xml.Name `xml:"TransactionArray"`
+	Transactions              []Transaction
 }
 
 type PickupMethodSelected struct {
