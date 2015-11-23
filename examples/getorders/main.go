@@ -90,9 +90,15 @@ func main() {
 		return
 	}
 
- Response := ebay.GetOrdersRequestResponse{}
+ Response := ebay.GetOrdersRequestResponse{
+
+ }
+
+Orders := ebay.OrderArray{}
+
 
  xml.Unmarshal(data, &Response)
+ xml.Unmarshal(data, &Orders)
 
 	e := Response.Errors
 
@@ -100,34 +106,33 @@ func main() {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
 		return
 	}
-	
-	
 
-
-//spew.Dump(Response.Ack)
+// do something with the orders //
+//spew.Dump(Response.OrdersArray)
 
 switch Response.Ack {
     case "Success":
         colour.Printf(" ^6 Response: ^2" + Response.Ack +" ^R \n")
-		
-	//	 orderactualcount := strconv.Itoa(Response.ReturnedOrderCountActual)
-		 pagecount := strconv.Itoa(Response.Pagination.TotalNumberOfPages)
-		 pagenumber :=strconv.Itoa(Response.PageNumber + 1)
-		 totalentries := strconv.Itoa(Response.Pagination.TotalNumberOfEntries)
-		 hasMoreOrders := strconv.FormatBool(Response.HasMoreOrders)
-		
 
- //       colour.Printf(" ^6 Order count: ^2" +  orderactualcount +" ^R \n")
+		 orderactualcount := strconv.Itoa(Response.ReturnedOrderCountActual)
+		 pagecount := strconv.Itoa(Response.Paginations.TotalNumberOfPages)
+		 pagenumber :=strconv.Itoa(Response.PageNumber)
+		 totalentries := strconv.Itoa(Response.Paginations.TotalNumberOfEntries)
+		 hasMoreOrders := strconv.FormatBool(Response.HasMoreOrders)
+
+
+
         colour.Printf(" ^6 Total Pages: ^2" +  pagecount +" ^R \n")
         colour.Printf(" ^6 Current Page: ^2" +  pagenumber +" ^R \n")
-        colour.Printf(" ^6 Total entries: ^2" +  totalentries +" ^R \n")
+		 colour.Printf(" ^6 Page Entries: ^2" +  orderactualcount +" ^R \n")
+        colour.Printf(" ^6 Total Orders: ^2" +  totalentries +" ^R \n")
         colour.Printf(" ^6 Has more orders: ^2" +  hasMoreOrders +" ^R \n")
-        
+
     case "Failure":
         colour.Printf(" ^6 Response: ^1" + Response.Ack +" ^R ")
     default:
         colour.Printf(" ^6 Response: ^3" + Response.Ack +" ^R ")
     }
-	
-	
+
+
 }

@@ -82,6 +82,7 @@ type Order struct {
 	CheckoutStatuss                     CheckoutStatus `xml:"CheckoutStatus"`
 	ContainseBayPlusTransaction         bool
 	CreatedTime                         string
+	ModifiedTime                         string
 	CreatingUserRole                    string
 	EIASToken                           string
 	ExtendedOrderID                     string
@@ -111,6 +112,24 @@ type Order struct {
 	TransactionArrays         TransactionArray `xml:"TransactionArray"`
 }
 type Transaction struct {
+	//Buyer  Buyer
+	ShippingDetails ShippingDetails
+	CreatedDate string
+	Item Item
+	QuantityPurchased string
+//	Status Status
+	TransactionID string
+	TransactionPrice string
+	//ShippingServiceSelected ShippingServiceSelected
+	FinalValueFee string
+	TransactionSiteID string
+	Platform string
+	//Taxes Taxes
+	ActualShippingCost float32
+	ActualHandlingCost float32
+	OrderLineItemID string
+	ExtendedOrderID string
+	eBayPlusTransaction bool
 
 }
 type TransactionArray struct {
@@ -178,6 +197,8 @@ type InternationalShippingServiceOption struct {
 	//     ShippingServicePriority int
 	//    ShipToLocation string
 }
+
+
 type CalculatedShippingRate struct {
 	InternationalPackagingHandlingCosts string
 	OriginatingPostalCode               string
