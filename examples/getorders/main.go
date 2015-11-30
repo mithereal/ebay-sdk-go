@@ -45,10 +45,10 @@ func main() {
 		IncludeFinalValueFee: "true",
 		OrderStatus:          "Completed",
 		Version:              EbayApiVersion,
-		// Credentials are optional they are used for a custom config data store
+		// Credentials are used for custom config data store
 		RequesterCredentials: Credentials,
 	}
-	// Response := OrdersRequest._FetchOrders()  for use with default config data store
+	// Response := OrdersRequest.FetchOrders()  for use with default config data store
 	Response := OrdersRequest.FetchOrders(*Config)
 
 
