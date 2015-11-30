@@ -2,6 +2,7 @@ package ebay
 
 import (
 	"encoding/xml"
+
 )
 
 const (

@@ -25,6 +25,9 @@ func main() {
 		return
 	}
 
+	//Config is * optional *, its for use with custom config data stores ie. db
+	//example shown is for custom config data stored in  ~/.ebayapi or in environment variables
+
 
 	Config, _ := ebay.NewConfig(path.Join(usr.HomeDir, ".ebayapi"))
 
@@ -42,14 +45,15 @@ func main() {
 		IncludeFinalValueFee: "true",
 		OrderStatus:          "Completed",
 		Version:              EbayApiVersion,
+		// Credentials are optional they are used for a custom config data store
 		RequesterCredentials: Credentials,
 	}
-
+	// Response := OrdersRequest._FetchOrders()  for use with default config data store
 	Response := OrdersRequest.FetchOrders(*Config)
 
 
 
-	// do something with the orders | we dump to verify function is working" //
+	// do something with the orders //
 	spew.Dump(Response.OrdersArray)
 
 	switch Response.Ack {
