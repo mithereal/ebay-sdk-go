@@ -72,3 +72,4 @@ func (p *Pagination) Setpagination(entriesperpage, pagenumber string) {
 	p.EntriesPerPage = entriesperpage
 	p.PageNumber = pagenumber
 }
+

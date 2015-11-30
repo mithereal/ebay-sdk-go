@@ -1,15 +1,13 @@
 package main
 
 import "github.com/mithereal/go-ebay"
-import "github.com/franela/goreq"
 import "github.com/alecthomas/colour"
-//import "github.com/davecgh/go-spew/spew"
+import "github.com/davecgh/go-spew/spew"
 import "gopkg.in/alecthomas/kingpin.v2"
-import "encoding/xml"
-import "io/ioutil"
 import "os/user"
 import "path"
 import "strconv"
+
 
 const (
 	Version        = "1.0"
@@ -21,6 +19,12 @@ func main() {
 	kingpin.Parse()
 
 	usr, err := user.Current()
+
+	if err != nil {
+		colour.Println("^1 ERROR - processUser -> user.Current: " + err.Error())
+		return
+	}
+
 
 	Config, _ := ebay.NewConfig(path.Join(usr.HomeDir, ".ebayapi"))
 
@@ -41,98 +45,36 @@ func main() {
 		RequesterCredentials: Credentials,
 	}
 
-	OrdersXml, err := xml.Marshal(OrdersRequest)
+	Response := OrdersRequest.FetchOrders(*Config)
 
-	if err != nil {
-		colour.Println("^1 ERROR - xml.Marshal : " + err.Error())
-		return
+
+
+	// do something with the orders | we dump to verify function is working" //
+	spew.Dump(Response.OrdersArray)
+
+	switch Response.Ack {
+	case "Success":
+		colour.Printf(" ^6 Response: ^2" + Response.Ack +" ^R \n")
+
+		orderactualcount := strconv.Itoa(Response.ReturnedOrderCountActual)
+		pagecount := strconv.Itoa(Response.Paginations.TotalNumberOfPages)
+		pagenumber :=strconv.Itoa(Response.PageNumber)
+		totalentries := strconv.Itoa(Response.Paginations.TotalNumberOfEntries)
+		hasMoreOrders := strconv.FormatBool(Response.HasMoreOrders)
+
+
+
+		colour.Printf(" ^6 Total Pages: ^2" +  pagecount +" ^R \n")
+		colour.Printf(" ^6 Current Page: ^2" +  pagenumber +" ^R \n")
+		colour.Printf(" ^6 Page Entries: ^2" +  orderactualcount +" ^R \n")
+		colour.Printf(" ^6 Total Orders: ^2" +  totalentries +" ^R \n")
+		colour.Printf(" ^6 Has more orders: ^2" +  hasMoreOrders +" ^R \n")
+
+	case "Failure":
+		colour.Printf(" ^6 Response: ^1" + Response.Ack +" ^R ")
+	default:
+		colour.Printf(" ^6 Response: ^3" + Response.Ack +" ^R ")
 	}
-
-	xmlheader := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
-
-	body := append(xmlheader, OrdersXml...)
-
-	req := goreq.Request{
-		Method:      "POST",
-		Uri:         "https://api.ebay.com/ws/api.dll",
-		Body:        body,
-		ContentType: "application/xml; charset=utf-8",
-		UserAgent:   "go-ebay-fetch-orders",
-		ShowDebug:   false,
-	}
-
-	req.AddHeader("X-EBAY-API-CALL-NAME", "GetOrders")
-	req.AddHeader("X-EBAY-API-DEV-NAME", Config.DevID)
-	req.AddHeader("X-EBAY-API-CERT-NAME", Config.CertID)
-	req.AddHeader("X-EBAY-API-APP-NAME", Config.AppID)
-	req.AddHeader("X-EBAY-API-VERSION", EbayApiVersion)
-	req.AddHeader("X-EBAY-API-COMPATIBILITY-LEVEL", EbayApiVersion)
-	req.AddHeader("X-EBAY-API-REQUEST-ENCODING", "XML")
-	req.AddHeader("X-EBAY-API-RESPONSE-ENCODING", "XML")
-	req.AddHeader("X-EBAY-API-SITEID", "0")
-	req.AddHeader("X-EBAY-API-COMPATIBILITY-LEVEL HTTP", EbayApiVersion)
-
-	req.AddHeader("Accept", "application/xml,application/xhtml+xml")
-	req.AddHeader("X-Powered-By", "go-ebay (https://goo.gl/Zi7RMK)")
-	req.AddHeader("X-Author", "Jason Clark (mithereal@gmail.com)")
-
-	res, err := req.Do()
-
-	if err != nil {
-		colour.Println("^1 ERROR - processUrl -> req.Do: " + err.Error())
-		return
-	}
-
-	data, err := ioutil.ReadAll(res.Body)
-
-	if err != nil {
-		colour.Println("^1 ERROR - ioutil.ReadAll : " + err.Error())
-		return
-	}
-
- Response := ebay.GetOrdersRequestResponse{
-
- }
-
-Orders := ebay.OrderArray{}
-
-
- xml.Unmarshal(data, &Response)
- xml.Unmarshal(data, &Orders)
-
-	e := Response.Errors
-
-	if e.ShortMessage != "" {
-		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
-		return
-	}
-
-// do something with the orders //
-//spew.Dump(Response.OrdersArray)
-
-switch Response.Ack {
-    case "Success":
-        colour.Printf(" ^6 Response: ^2" + Response.Ack +" ^R \n")
-
-		 orderactualcount := strconv.Itoa(Response.ReturnedOrderCountActual)
-		 pagecount := strconv.Itoa(Response.Paginations.TotalNumberOfPages)
-		 pagenumber :=strconv.Itoa(Response.PageNumber)
-		 totalentries := strconv.Itoa(Response.Paginations.TotalNumberOfEntries)
-		 hasMoreOrders := strconv.FormatBool(Response.HasMoreOrders)
-
-
-
-        colour.Printf(" ^6 Total Pages: ^2" +  pagecount +" ^R \n")
-        colour.Printf(" ^6 Current Page: ^2" +  pagenumber +" ^R \n")
-		 colour.Printf(" ^6 Page Entries: ^2" +  orderactualcount +" ^R \n")
-        colour.Printf(" ^6 Total Orders: ^2" +  totalentries +" ^R \n")
-        colour.Printf(" ^6 Has more orders: ^2" +  hasMoreOrders +" ^R \n")
-
-    case "Failure":
-        colour.Printf(" ^6 Response: ^1" + Response.Ack +" ^R ")
-    default:
-        colour.Printf(" ^6 Response: ^3" + Response.Ack +" ^R ")
-    }
 
 
 }

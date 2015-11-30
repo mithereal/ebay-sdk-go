@@ -41,3 +41,4 @@ type RequesterCredentials struct {
 func (r *RequesterCredentials) SetToken(token string) {
 	r.RequestToken = token
 }
+

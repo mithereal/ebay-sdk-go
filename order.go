@@ -1,6 +1,9 @@
 package ebay
 
 import "encoding/xml"
+import "github.com/franela/goreq"
+import "io/ioutil"
+import "github.com/alecthomas/colour"
 
 type GetOrdersRequest struct {
 	Xmlns string `xml:"xmlns,attr"`
@@ -345,4 +348,77 @@ type CheckoutStatus struct {
 func (o *OrderIDArray) GetOrderId(orderid string) {
 	o.OrderID = orderid
 
+}
+
+
+func  (o *GetOrdersRequest) FetchOrders(c Config) GetOrdersRequestResponse {
+
+	OrdersXml, err := xml.Marshal(o)
+
+	if err != nil {
+		colour.Println("^1 ERROR - xml.Marshal : " + err.Error())
+		return GetOrdersRequestResponse{}
+	}
+
+	xmlheader := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+
+	body := append(xmlheader, OrdersXml...)
+
+	req := goreq.Request{
+		Method:      "POST",
+		Uri:         "https://api.ebay.com/ws/api.dll",
+		Body:        body,
+		ContentType: "application/xml; charset=utf-8",
+		UserAgent:   "go-ebay-fetch-orders",
+		ShowDebug:   false,
+	}
+
+	req.AddHeader("X-EBAY-API-CALL-NAME", "GetOrders")
+	req.AddHeader("X-EBAY-API-DEV-NAME", c.DevID)
+	req.AddHeader("X-EBAY-API-CERT-NAME", c.CertID)
+	req.AddHeader("X-EBAY-API-APP-NAME", c.AppID)
+	req.AddHeader("X-EBAY-API-VERSION", o.Version)
+	req.AddHeader("X-EBAY-API-COMPATIBILITY-LEVEL", o.Version)
+	req.AddHeader("X-EBAY-API-REQUEST-ENCODING", "XML")
+	req.AddHeader("X-EBAY-API-RESPONSE-ENCODING", "XML")
+	req.AddHeader("X-EBAY-API-SITEID", "0")
+	req.AddHeader("X-EBAY-API-COMPATIBILITY-LEVEL HTTP", o.Version)
+
+	req.AddHeader("Accept", "application/xml,application/xhtml+xml")
+	req.AddHeader("X-Powered-By", "go-ebay (https://goo.gl/Zi7RMK)")
+	req.AddHeader("X-Author", "Jason Clark (mithereal@gmail.com)")
+
+	res, err := req.Do()
+
+	if err != nil {
+		colour.Println("^1 ERROR - processUrl -> req.Do: " + err.Error())
+		return GetOrdersRequestResponse{}
+		}
+
+
+	data, err := ioutil.ReadAll(res.Body)
+
+	if err != nil {
+		colour.Println("^1 ERROR - ioutil.ReadAll : " + err.Error())
+		return GetOrdersRequestResponse{}
+	}
+
+	Response := GetOrdersRequestResponse{
+
+	}
+
+	Orders := OrderArray{}
+
+
+	xml.Unmarshal(data, &Response)
+	xml.Unmarshal(data, &Orders)
+
+	e := Response.Errors
+
+	if e.ShortMessage != "" {
+		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
+		return GetOrdersRequestResponse{}
+	}
+
+	return Response
 }
