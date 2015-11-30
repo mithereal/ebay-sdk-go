@@ -37,18 +37,16 @@ func main() {
 
 
 	OrdersRequest := ebay.GetOrdersRequest{
-		Xmlns:                "urn:ebay:apis:eBLBaseComponents",
 		CreateTimeFrom:       *createtimefrom,
 		CreateTimeTo:         *createtimeto,
 		DetailLevel:          "ReturnAll",
 		OrderRole:            "Seller",
 		IncludeFinalValueFee: "true",
 		OrderStatus:          "Completed",
-		Version:              EbayApiVersion,
 		// Credentials are used for custom config data store
 		RequesterCredentials: Credentials,
 	}
-	// Response := OrdersRequest.FetchOrders()  for use with default config data store
+	// Response := OrdersRequest._FetchOrders()  for use with default config data store
 	Response := OrdersRequest.FetchOrders(*Config)
 
 

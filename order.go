@@ -354,7 +354,8 @@ func (o *OrderIDArray) GetOrderId(orderid string) {
 
 
 func  (o *GetOrdersRequest) FetchOrders(c Config) GetOrdersRequestResponse {
-
+	o.Xmlns = "urn:ebay:apis:eBLBaseComponents"
+	o.Version = Version
 	OrdersXml, err := xml.Marshal(o)
 
 	if err != nil {
@@ -426,6 +427,8 @@ func  (o *GetOrdersRequest) FetchOrders(c Config) GetOrdersRequestResponse {
 }
 
 func  (o *GetOrdersRequest) _FetchOrders() GetOrdersRequestResponse {
+	o.Xmlns = "urn:ebay:apis:eBLBaseComponents"
+	o.Version = Version
 
 	usr, err := user.Current()
 
