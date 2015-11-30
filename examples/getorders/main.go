@@ -11,7 +11,7 @@ import "strconv"
 
 const (
 	Version        = "1.0"
-	EbayApiVersion = "935"
+
 )
 
 func main() {
