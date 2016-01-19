@@ -113,7 +113,7 @@ type Order struct {
 	ShippingDetailss          ShippingDetails `xml:"ShippingDetails"`
 	ShippingServiceSelected   string
 	Subtotal                  string
-	Total                     string
+	Total                     float64
 	TransactionArrays         TransactionArray `xml:"TransactionArray"`
 }
 type Transaction struct {
