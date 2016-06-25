@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+### Go template
+>>>>>>> Stashed changes
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 *.o
 *.a
@@ -23,6 +27,7 @@ _testmain.go
 *.test
 *.prof
 
+<<<<<<< Updated upstream
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 
 *.iml
@@ -71,3 +76,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+=======
+# Created by .ignore support plugin (hsz.mobi)
+>>>>>>> Stashed changes

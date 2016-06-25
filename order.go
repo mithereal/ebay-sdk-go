@@ -4,47 +4,47 @@ import "encoding/xml"
 import "github.com/franela/goreq"
 import "io/ioutil"
 import "github.com/alecthomas/colour"
-import  "os/user"
+import "os/user"
 import "path"
 
 type GetOrdersRequest struct {
-	Xmlns string `xml:"xmlns,attr"`
+	Xmlns                string `xml:"xmlns,attr"`
 
 	RequesterCredentials RequesterCredentials `xml:"RequesterCredentials"`
 
 	CreateTimeFrom       string
 	CreateTimeTo         string
 	IncludeFinalValueFee string
-	//  ListingType          string
-	//  ModTimeFrom string
-	//	ModTimeTo            string
-	//	NumberOfDays         string
-	OrderRole   string
-	OrderStatus string
-	//	SortingOrder         string
-	DetailLevel string
-	//	ErrorLanguage        string
-	//	MessageID            string
-	//	OutputSelector       string
-	Version string
-	//	WarningLevel         string
-	//	Pagination  		Pagination
-	//	OrderIDArray
+	ListingType          string
+	ModTimeFrom          string
+	ModTimeTo            string
+	NumberOfDays         string
+	OrderRole            string
+	OrderStatus          string
+	SortingOrder         string
+	DetailLevel          string
+	ErrorLanguage        string
+	MessageID            string
+	OutputSelector       string
+	Version              string
+	WarningLevel         string
+	Pagination           Pagination
+	OrderIDArray
 }
 
 type GetOrdersRequestResponse struct {
-	Xmlns         string `xml:"xmlns,attr"`
-	Timestamp     string `xml:"Timestamp"`
-	Ack           string `xml:"Ack"`
-	Build         string `xml:"Build"`
-	Errors        Errors `xml:"Errors"`
-	HasMoreOrders bool   `xml:"HasMoreOrders"`
+	Xmlns                    string `xml:"xmlns,attr"`
+	Timestamp                string `xml:"Timestamp"`
+	Ack                      string `xml:"Ack"`
+	Build                    string `xml:"Build"`
+	Errors                   Errors `xml:"Errors"`
+	HasMoreOrders            bool   `xml:"HasMoreOrders"`
 
-	CorrelationID         string `xml:"CorrelationID"`
-	HardExpirationWarning string `xml:"HardExpirationWarning"`
+	CorrelationID            string `xml:"CorrelationID"`
+	HardExpirationWarning    string `xml:"HardExpirationWarning"`
 
-	Paginations  Pagination `xml:"PaginationResult"`
-	OrdersArray OrderArray `xml:"OrderArray"`
+	Paginations              Pagination `xml:"PaginationResult"`
+	OrdersArray              OrderArray `xml:"OrderArray"`
 
 	OrdersPerPage            int `xml:"OrdersPerPage"`
 	PageNumber               int `xml:"PageNumber"`
@@ -87,7 +87,7 @@ type Order struct {
 	CheckoutStatuss                     CheckoutStatus `xml:"CheckoutStatus"`
 	ContainseBayPlusTransaction         bool
 	CreatedTime                         string
-	ModifiedTime                         string
+	ModifiedTime                        string
 	CreatingUserRole                    string
 	EIASToken                           string
 	ExtendedOrderID                     string
@@ -103,47 +103,47 @@ type Order struct {
 	PaymentMethods                      string
 	PickupDetailss                      PickupDetails `xml:"PickupDetails"`
 	PickupMethodSelected
-	RefundArrays    RefundArray `xml:"RefundArray"`
-	SellerEIASToken string
-	SellerEmail     string
-	SellerUserID    string
-	ShippedTime     string
+	RefundArrays                        RefundArray `xml:"RefundArray"`
+	SellerEIASToken                     string
+	SellerEmail                         string
+	SellerUserID                        string
+	ShippedTime                         string
 	//	ShippingAddress
-	ShippingConvenienceCharge string
-	ShippingDetailss          ShippingDetails `xml:"ShippingDetails"`
-	ShippingServiceSelected   string
-	Subtotal                  string
-	Total                     float64
-	TransactionArrays         TransactionArray `xml:"TransactionArray"`
+	ShippingConvenienceCharge           string
+	ShippingDetailss                    ShippingDetails `xml:"ShippingDetails"`
+	ShippingServiceSelected             string
+	Subtotal                            string
+	Total                               float64
+	TransactionArrays                   TransactionArray `xml:"TransactionArray"`
 }
 type Transaction struct {
 	//Buyer  Buyer
-	ShippingDetails ShippingDetails
-	CreatedDate string
-	Item Item
-	QuantityPurchased string
-//	Status Status
-	TransactionID string
-	TransactionPrice string
+	ShippingDetails     ShippingDetails
+	CreatedDate         string
+	Item                Item
+	QuantityPurchased   string
+	//	Status Status
+	TransactionID       string
+	TransactionPrice    string
 	//ShippingServiceSelected ShippingServiceSelected
-	FinalValueFee string
-	TransactionSiteID string
-	Platform string
+	FinalValueFee       string
+	TransactionSiteID   string
+	Platform            string
 	//Taxes Taxes
-	ActualShippingCost float32
-	ActualHandlingCost float32
-	OrderLineItemID string
-	ExtendedOrderID string
+	ActualShippingCost  float32
+	ActualHandlingCost  float32
+	OrderLineItemID     string
+	ExtendedOrderID     string
 	eBayPlusTransaction bool
 
 }
 type TransactionArray struct {
-	XMLName                             xml.Name `xml:"TransactionArray"`
-	Transactions              []Transaction
+	XMLName      xml.Name `xml:"TransactionArray"`
+	Transactions []Transaction
 }
 
 type PickupMethodSelected struct {
-	XMLName                             xml.Name `xml:"PickupMethodSelected"`
+	XMLName               xml.Name `xml:"PickupMethodSelected"`
 	MerchantPickupCode    string
 	PickupFulfillmentTime string
 	PickupLocationUUID    string
@@ -231,13 +231,13 @@ type RequiredSellerActionArray struct {
 	RequiredSellerAction string
 }
 type PaymentHoldDetails struct {
-	ExpectedReleaseDate   string
-	NumOfReqSellerActions string
-	PaymentHoldReason     string
-	RequiredSellerActionArrays  RequiredSellerActionArray
+	ExpectedReleaseDate        string
+	NumOfReqSellerActions      string
+	PaymentHoldReason          string
+	RequiredSellerActionArrays RequiredSellerActionArray
 }
 type ShipToAddress struct {
-	XMLName                             xml.Name `xml:"ShipToAddress"`
+	XMLName           xml.Name `xml:"ShipToAddress"`
 	AddressAttribute  string
 	AddressID         string
 	AddressOwner      string
@@ -249,9 +249,9 @@ type ShipToAddress struct {
 	Phone             string
 	PostalCode        string
 	//ReferenceID       string
-	StateOrProvince string
-	Street1         string
-	Street2         string
+	StateOrProvince   string
+	Street1           string
+	Street2           string
 }
 type SellerShipmentToLogisticsProvider struct {
 	ShippingServiceDetails
@@ -279,16 +279,16 @@ type Refunds struct {
 	Refund
 }
 type Refund struct {
-	FeeOrCreditAmount string
+	FeeOrCreditAmount  string
 	//ReferenceID       string
-	RefundAmount string
-	RefundStatus string
-	RefundTime   string
-	RefundTo     string
-	RefundType   string
+	RefundAmount       string
+	RefundStatus       string
+	RefundTime         string
+	RefundTo           string
+	RefundType         string
 
 	//RefundAmount string
-	RefundFromSeller string
+	RefundFromSeller   string
 	//	RefundID string
 	//	RefundStatus string
 	//	RefundTime string
@@ -353,7 +353,7 @@ func (o *OrderIDArray) GetOrderId(orderid string) {
 }
 
 
-func  (o *GetOrdersRequest) FetchOrders(c Config) GetOrdersRequestResponse {
+func (o *GetOrdersRequest) FetchOrders(c Config) GetOrdersRequestResponse {
 	o.Xmlns = "urn:ebay:apis:eBLBaseComponents"
 	o.Version = Version
 	OrdersXml, err := xml.Marshal(o)
@@ -396,7 +396,7 @@ func  (o *GetOrdersRequest) FetchOrders(c Config) GetOrdersRequestResponse {
 	if err != nil {
 		colour.Println("^1 ERROR - processUrl -> req.Do: " + err.Error())
 		return GetOrdersRequestResponse{}
-		}
+	}
 
 
 	data, err := ioutil.ReadAll(res.Body)
@@ -426,7 +426,7 @@ func  (o *GetOrdersRequest) FetchOrders(c Config) GetOrdersRequestResponse {
 	return Response
 }
 
-func  (o *GetOrdersRequest) _FetchOrders() GetOrdersRequestResponse {
+func (o *GetOrdersRequest) _FetchOrders() GetOrdersRequestResponse {
 	o.Xmlns = "urn:ebay:apis:eBLBaseComponents"
 	o.Version = Version
 
