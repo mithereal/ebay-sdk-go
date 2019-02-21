@@ -25,24 +25,24 @@ const (
 	// The request was processed successfully, but something occurred that may
 	// affect your application or the user.
 	//
-	//AckValueSuccess AckValue = "Success"
+	AckValueSuccess AckValue = "Success"
 
 	//
 	// The request that triggered the error was not processed successfully.
 	// When a serious application-level error occurs, the error is returned
 	// instead of the business data.
 	//
-	//AckValueFailure AckValue = "Failure"
+	AckValueFailure AckValue = "Failure"
 
 	//
 	// The request that triggered the error was processed successfully but with some warnings.
 	//
-	//AckValueWarning AckValue = "Warning"
+	AckValueWarning AckValue = "Warning"
 
 	//
 	// The request that triggered the error was processed successfully but with some warnings.
 	//
-	//AckValuePartialFailure AckValue = "PartialFailure"
+	AckValuePartialFailure AckValue = "PartialFailure"
 )
 
 //
@@ -59,7 +59,7 @@ const (
 	// When a serious application-level error occurs, the error is returned
 	// instead of the business data.
 	//
-	//ErrorSeverityError ErrorSeverity = "Error"
+	ErrorSeverityError ErrorSeverity = "Error"
 
 	//
 	// The request was processed successfully, but something occurred that may
@@ -87,7 +87,7 @@ const (
 	// persists, contact Developer Technical Support. Once the problem has been
 	// resolved, the request may be resent in its original form.
 	//
-//	ErrorCategorySystem ErrorCategory = "System"
+	ErrorCategorySystem ErrorCategory = "System"
 
 	//
 	// An error occurred due to a problem with the request, such as missing or

@@ -19,58 +19,13 @@ var _ xml.Name
 //
 type AckValue string
 
-const (
-
-	//
-	// The request was processed successfully, but something occurred that may
-	// affect your application or the user.
-	//
-	AckValueSuccess AckValue = "Success"
-
-	//
-	// The request that triggered the error was not processed successfully.
-	// When a serious application-level error occurs, the error is returned
-	// instead of the business data.
-	//
-	AckValueFailure AckValue = "Failure"
-
-	//
-	// The request that triggered the error was processed successfully but with some
-	// warnings.
-	//
-	AckValueWarning AckValue = "Warning"
-
-	//
-	// The request that triggered the error was processed successfully but there is
-	// some error in the application or data.
-	//
-	AckValuePartialFailure AckValue = "PartialFailure"
-)
 
 //
 // Indicates whether the error is a severe error (causing the request to fail)
 // or an informational error (a warning) that should be communicated to the
 // user.
 //
-type ErrorSeverity string
 
-const (
-
-	//
-	// The request that triggered the error was not processed successfully.
-	// When a serious application-level error occurs, the error is returned
-	// instead of the business data.
-	//
-	ErrorSeverityError ErrorSeverity = "Error"
-
-	//
-	// The request was processed successfully, but something occurred that may
-	// affect your application or the user. For example, eBay may have changed a
-	// value the user sent in. In this case, eBay returns a normal, successful
-	// response and also returns the warning.
-	//
-	ErrorSeverityWarning ErrorSeverity = "Warning"
-)
 
 //
 // There are three categories of error: request errors, application errors,
@@ -78,39 +33,7 @@ const (
 // invalid data passed in the request. System errors are caused by
 // application failures and cannot be corrected by changing request values.
 //
-type ErrorCategory string
 
-const (
-
-	//
-	// Indicates that an error has occurred on the eBay system side, such as a
-	// database or server outage. An application can retry the request a
-	// reasonable number of times (eBay recommends twice). If the error
-	// persists, contact Developer Technical Support. Once the problem has been
-	// resolved, the request may be resent in its original form.
-	//
-	ErrorCategorySystem ErrorCategory = "System"
-
-	//
-	// An error occurred due to a problem with the request, such as missing or
-	// invalid fields. The problem must be corrected before the request can be
-	// made again. If the problem is due to something in the application (such
-	// as a missing required field), the application must be changed. Once the
-	// problem in the application or data is resolved, resend the corrected
-	// request to eBay.
-	//
-	ErrorCategoryApplication ErrorCategory = "Application"
-
-	//
-	// An error occurred due to a problem with the request, such as invalid or
-	// missing data. The problem must be corrected before the request can be
-	// made again. If the problem is a result of end-user data, the application
-	// must alert the end-user to the problem and provide the means for the
-	// end-user to correct the data. Once the problem in the data is resolved,
-	// resend the request to eBay with the corrected data.
-	//
-	ErrorCategoryRequest ErrorCategory = "Request"
-)
 
 type UploadFileRequest UploadFileRequest
 
@@ -217,147 +140,6 @@ type DownloadFileResponse struct {
 	FileAttachment *FileAttachment `xml:"fileAttachment,omitempty"`
 }
 
-type BaseServiceRequest struct {
-}
-
-type BaseServiceResponse struct {
-
-	//
-	// Indicates the success or failure of transferring data to eBay's servers.
-	//
-	Ack *AckValue `xml:"ack,omitempty"`
-
-	//
-	// Information for an error or warning that occurred when eBay processed the
-	// request.
-	//
-	ErrorMessage *ErrorMessage `xml:"errorMessage,omitempty"`
-
-	//
-	// The version of the schema that your WSDL is based on.
-	//
-	Version string `xml:"version,omitempty"`
-
-	//
-	// The date and time that the response was sent.
-	//
-	Timestamp time.Time `xml:"timestamp,omitempty"`
-}
-
-type ErrorMessage struct {
-
-	//
-	// Details about a single error.
-	//
-	Error []*ErrorData `xml:"error,omitempty"`
-}
-
-type ErrorData struct {
-
-	//
-	// A unique code that identifies the particular error condition that occurred.
-	// Your application can use error codes as identifiers in your customized
-	// error-handling algorithms.
-	//
-	ErrorId int64 `xml:"errorId,omitempty"`
-
-	//
-	// Name of the domain upon which the error occurred.
-	// <dl>
-	// <lh>Domains include:</lh>
-	// <dt>
-	// Marketplace
-	// </dt>
-	// <dd>
-	// A business or validation error occurred for the Merchandising Service.
-	// </dd>
-	// <dt>
-	// SOA
-	// </dt>
-	// <dd>
-	// An exception occurred in the Service Oriented Architecture (SOA) framework.
-	// </dd>
-	// </dl>
-	//
-	Domain string `xml:"domain,omitempty"`
-
-	//
-	// Indicates whether the error caused the request to fail (Error) or not
-	// (Warning).
-	// <br><br>
-	// If the request fails and the source of the problem is within the application
-	// (such as a missing required element), please change the application before you
-	// retry the request. If the problem is due to end-user input data, please alert
-	// the end-user to the problem and provide the means for them to correct the data.
-	// Once the problem in the application or data is resolved, you can attempt to re-
-	// send the request to eBay.
-	// <br><br>
-	// If the source of the problem is on eBay's side, you can retry the request as-is
-	// a reasonable number of times (eBay recommends twice). If the error persists,
-	// contact Developer Technical Support. Once the problem has been resolved, the
-	// request may be resent in its original form.
-	// <br><br>
-	// When a warning occurs, the error is returned in addition to the business data.
-	// In this case, you do not need to retry the request (as the original request was
-	// successful). However, depending on the cause or nature of the warning, you
-	// might need to contact either the end user or eBay to effect a long term
-	// solution to the problem to prevent it from reoccurring in the future.
-	//
-	Severity *ErrorSeverity `xml:"severity,omitempty"`
-
-	//
-	// There are three categories of errors: request errors, application errors, and
-	// system errors.
-	//
-	Category *ErrorCategory `xml:"category,omitempty"`
-
-	//
-	// A detailed description of the condition that resulted in the error.
-	//
-	Message string `xml:"message,omitempty"`
-
-	//
-	// Name of the subdomain upon which the error occurred.
-	// <dl>
-	// <lh>Subdomains include:</lh>
-	// <dt>
-	// Merchandising
-	// </dt>
-	// <dd>
-	// The error is specific to the Merchandising service.
-	// </dd>
-	// <dt>
-	// MarketplaceCommon
-	// </dt>
-	// <dd>
-	// The error is common to all Marketplace services.
-	// </dd>
-	// </dl>
-	//
-	Subdomain string `xml:"subdomain,omitempty"`
-
-	//
-	// Unique identifier for an exception associated with an error.
-	//
-	ExceptionId string `xml:"exceptionId,omitempty"`
-
-	//
-	// Some warning and error messages return one or more variables that contain
-	// contextual information about the error. This is often the field or value that
-	// triggered the error.
-	//
-	Parameter []*ErrorParameter `xml:"parameter,omitempty"`
-}
-
-type ErrorParameter struct {
-	Value string
-
-	//
-	// The name of the parameter in the list of parameter types returned
-	// within the error type.
-	//
-	Name string `xml:"name,attr,omitempty"`
-}
 
 type FileAttachment struct {
 
