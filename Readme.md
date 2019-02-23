@@ -1,10 +1,11 @@
 Go Ebay  API
 ===
 ebay api sdk written in go.
-
 ===
 
 the examples directory conatains ready to go code snippets, you can make certain calls like fetch orders and getmessages to ebay servers, if you wish to contribute please follow the same schema as the examples.
+
+we support a few apis the legacy one namespaced ebay.legacy, ebay.soap and ebay
 
 usage: 
 
