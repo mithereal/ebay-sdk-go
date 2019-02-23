@@ -1,0 +1,8 @@
+{
+  "version": "1.0alpha",
+    "appID": "TEST_APP_ID",
+      "certID": "TEST_CERT_ID",
+        "devID": "TEST_DEV_ID",
+          "ruName": "TEST_RUNAME",
+            "endpoint": "https://api.sandbox.ebay.com/ws/api.dll"
+            }

@@ -34,11 +34,3 @@ func NewConfig(cfgName string) (*Config, error) {
 	return &cfg, nil
 }
 
-type RequesterCredentials struct {
-	RequestToken string `xml:"eBayAuthToken"`
-}
-
-func (r *RequesterCredentials) SetToken(token string) {
-	r.RequestToken = token
-}
-

@@ -1,6 +1,6 @@
 Go Ebay  API
 ===
-ebay api written in go.
+ebay api sdk written in go.
 
 ===
 
