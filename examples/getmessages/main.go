@@ -22,11 +22,11 @@ func main() {
 
 	Config, _ := ebay.NewConfig(path.Join(usr.HomeDir, ".ebayapi"))
 
-	Credentials := ebay.RequesterCredentials{
+	Credentials := ebay.soap.RequesterCredentials{
 		EBayAuthToken: Config.Token,
 	}
 
-	MemberMessagesRequest := ebay.GetMemberMessagesRequestType{
+	MemberMessagesRequest := ebay.soap.GetMemberMessagesRequestType{
 		DisplayToPublic:   *DisplayToPublic,
 		StartCreationTime: *StartCreationTime,
 		EndCreationTime:   *EndCreationTime,
