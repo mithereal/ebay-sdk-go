@@ -29,7 +29,7 @@ type GetOrdersRequest struct {
 	Version              string
 	WarningLevel         string
 	Pagination           legacy.Pagination
-	OrderIDArray
+	OrderIDArray legacy.OrderIDArray
 }
 
 type legacy.GetOrdersRequestResponse struct {
@@ -395,7 +395,7 @@ func (o *legacy.GetOrdersRequest) legacy.FetchOrders(c Config) legacy.GetOrdersR
 
 	if err != nil {
 		colour.Println("^1 ERROR - processUrl -> req.Do: " + err.Error())
-		return GetOrdersRequestResponse{}
+		return legacy.GetOrdersRequestResponse{}
 	}
 
 
