@@ -137,12 +137,12 @@ type legacy.Transaction struct {
 	eBayPlusTransaction bool
 
 }
-type TransactionArray struct {
+type legacy.TransactionArray struct {
 	XMLName      xml.Name `xml:"TransactionArray"`
 	Transactions []legacy.Transaction
 }
 
-type PickupMethodSelected struct {
+type legacy.PickupMethodSelected struct {
 	XMLName               xml.Name `xml:"PickupMethodSelected"`
 	MerchantPickupCode    string
 	PickupFulfillmentTime string
@@ -152,7 +152,7 @@ type PickupMethodSelected struct {
 	PickupStoreID         string
 }
 type legacy.ShippingDetails struct {
-	CalculatedShippingRate
+	CalculatedShippingRate legacy.CalculatedShippingRate
 	CODCost         string
 	InsuranceFee    string
 	InsuranceOption string
@@ -236,7 +236,7 @@ type legacy.PaymentHoldDetails struct {
 	PaymentHoldReason          string
 	RequiredSellerActionArrays legacy.RequiredSellerActionArray
 }
-type legacyShipToAddress struct {
+type legacy.ShipToAddress struct {
 	XMLName           xml.Name `xml:"ShipToAddress"`
 	AddressAttribute  string
 	AddressID         string
@@ -420,7 +420,7 @@ func (o *legacy.GetOrdersRequest) legacy.FetchOrders(c Config) legacy.GetOrdersR
 
 	if e.ShortMessage != "" {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
-		return GetOrdersRequestResponse{}
+		return legacy.GetOrdersRequestResponse{}
 	}
 
 	return Response
@@ -438,7 +438,7 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if err != nil {
 		colour.Println("^1 ERROR - xml.Marshal : " + err.Error())
-		return GetOrdersRequestResponse{}
+		return legacy.GetOrdersRequestResponse{}
 	}
 
 	xmlheader := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
@@ -473,7 +473,7 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if err != nil {
 		colour.Println("^1 ERROR - processUrl -> req.Do: " + err.Error())
-		return GetOrdersRequestResponse{}
+		return legacy.GetOrdersRequestResponse{}
 	}
 
 
@@ -481,14 +481,14 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if err != nil {
 		colour.Println("^1 ERROR - ioutil.ReadAll : " + err.Error())
-		return GetOrdersRequestResponse{}
+		return legacy.GetOrdersRequestResponse{}
 	}
 
-	Response := GetOrdersRequestResponse{
+	Response := legacy.GetOrdersRequestResponse{
 
 	}
 
-	Orders := OrderArray{}
+	Orders := legacy.OrderArray{}
 
 
 	xml.Unmarshal(data, &Response)
@@ -498,7 +498,7 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if e.ShortMessage != "" {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
-		return GetOrdersRequestResponse{}
+		return legacy.GetOrdersRequestResponse{}
 	}
 
 	return Response

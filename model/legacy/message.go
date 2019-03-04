@@ -43,7 +43,7 @@ type legacy.MemberMessageExchange struct {
 	MessageStatus    string
 	Response         string
 	MessageMedia     []legacy.MessageMedia
-	Question
+	Question legacy.Question
 }
 
 type legacy.MemberMessage struct {
