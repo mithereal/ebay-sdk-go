@@ -268,7 +268,7 @@ type Legacy_MultiLegShippingDetails struct {
 }
 type Legacy_MonetaryDetails struct {
 	Payments Legacy_Payments
-	Refunds lefacy.Refunds
+	Refunds legacy_Refunds
 }
 
 type Legacy_Payments struct {
@@ -360,7 +360,7 @@ func (o *Legacy_GetOrdersRequest) Legacy_FetchOrders(c Config) Legacy_GetOrdersR
 
 	if err != nil {
 		colour.Println("^1 ERROR - xml.Marshal : " + err.Error())
-		return GetOrdersRequestResponse{}
+		return legacy_GetOrdersRequestResponse{}
 	}
 
 	xmlheader := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")

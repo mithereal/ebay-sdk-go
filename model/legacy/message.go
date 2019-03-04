@@ -38,7 +38,7 @@ type Legacy_GetMemberMessagesRequestResponse struct {
 }
 
 type Legacy_MemberMessageExchange struct {
-	Item             []Item
+	Item             []Legacy_Item
 	LastModifiedDate string
 	MessageStatus    string
 	Response         string
