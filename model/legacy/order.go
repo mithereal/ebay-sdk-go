@@ -10,7 +10,7 @@ import "path"
 type GetOrdersRequest struct {
 	Xmlns                string `xml:"xmlns,attr"`
 
-	RequesterCredentials legacy.RequesterCredentials `xml:"RequesterCredentials"`
+	RequesterCredentials Legacy_RequesterCredentials `xml:"RequesterCredentials"`
 
 	CreateTimeFrom       string
 	CreateTimeTo         string
@@ -28,11 +28,11 @@ type GetOrdersRequest struct {
 	OutputSelector       string
 	Version              string
 	WarningLevel         string
-	Pagination           legacy.Pagination
-	OrderIDArray legacy.OrderIDArray
+	Pagination           Legacy_Pagination
+	OrderIDArray Legacy_OrderIDArray
 }
 
-type legacy.GetOrdersRequestResponse struct {
+type Legacy_GetOrdersRequestResponse struct {
 	Xmlns                    string `xml:"xmlns,attr"`
 	Timestamp                string `xml:"Timestamp"`
 	Ack                      string `xml:"Ack"`
@@ -43,84 +43,84 @@ type legacy.GetOrdersRequestResponse struct {
 	CorrelationID            string `xml:"CorrelationID"`
 	HardExpirationWarning    string `xml:"HardExpirationWarning"`
 
-	Paginations              legacy.Pagination `xml:"PaginationResult"`
-	OrdersArray              legacy.OrderArray `xml:"OrderArray"`
+	Paginations              Legacy_Pagination `xml:"PaginationResult"`
+	OrdersArray              Legacy_OrderArray `xml:"OrderArray"`
 
 	OrdersPerPage            int `xml:"OrdersPerPage"`
 	PageNumber               int `xml:"PageNumber"`
 	ReturnedOrderCountActual int `xml:"ReturnedOrderCountActual"`
 }
 
-type legacy.Amount struct {
+type Legacy_Amount struct {
 }
-type legacy.BuyerPackageEnclosures struct {
+type Legacy_BuyerPackageEnclosures struct {
 }
-type legacy.PaymentInstructionCode struct {
+type Legacy_PaymentInstructionCode struct {
 }
-type legacy.TaxIdentifierAttributeCode struct {
+type Legacy_TaxIdentifierAttributeCode struct {
 }
-type legacy.ValueTypeCode struct {
+type Legacy_ValueTypeCode struct {
 }
-type legacy.OrderIDArray struct {
+type Legacy_OrderIDArray struct {
 	OrderID     string
 	BuyerUserID string
 }
 
-type legacy.OrderArray struct {
+type Legacy_OrderArray struct {
 	XMLName xml.Name `xml:"OrderArray"`
-	Orders  []legacy.Order  `xml:"Order"`
+	Orders  []Legacy_Order  `xml:"Order"`
 }
 
-type legacy.Order struct {
+type Legacy_Order struct {
 	XMLName                             xml.Name `xml:"Order"`
 	OrderID                             string
 	OrderStatus                         string
 	BuyerCheckoutMessage                string
 	AmountSaved                         string
-	BuyerPackageEnclosures              legacy.BuyerPackageEnclosure `xml:"BuyerPackageEnclosure"`
-	BuyerTaxIdentifiers                 legacy.BuyerTaxIdentifier `xml:"BuyerTaxIdentifier"`
+	BuyerPackageEnclosures              Legacy_BuyerPackageEnclosure `xml:"BuyerPackageEnclosure"`
+	BuyerTaxIdentifiers                 Legacy_BuyerTaxIdentifier `xml:"BuyerTaxIdentifier"`
 	BuyerUserID                         string
-	CancelDetails                       legacy.CancelDetail `xml:"CancelDetail"`
+	CancelDetails                       Legacy_CancelDetail `xml:"CancelDetail"`
 	CancelReason                        string
 	CancelReasonDetails                 string
 	CancelStatus                        string
-	CheckoutStatuss                     legacy.CheckoutStatus `xml:"CheckoutStatus"`
+	CheckoutStatuss                     Legacy_CheckoutStatus `xml:"CheckoutStatus"`
 	ContainseBayPlusTransaction         bool
 	CreatedTime                         string
 	ModifiedTime                        string
 	CreatingUserRole                    string
 	EIASToken                           string
 	ExtendedOrderID                     string
-	ExternalTransactions                legacy.ExternalTransaction `xml:"ExternalTransaction"`
+	ExternalTransactions                Legacy_ExternalTransaction `xml:"ExternalTransaction"`
 	IntegratedMerchantCreditCardEnabled string
 	IsMultiLegShipping                  string
 	LogisticsPlanType                   string
-	MonetaryDetailss                    legacy.MonetaryDetails `xml:"MonetaryDetails"`
-	MultiLegShippingDetailss            legacy.MultiLegShippingDetails `xml:"MultiLegShippingDetails"`
+	MonetaryDetailss                    Legacy_MonetaryDetails `xml:"MonetaryDetails"`
+	MultiLegShippingDetailss            Legacy_MultiLegShippingDetails `xml:"MultiLegShippingDetails"`
 	PaidTime                            string
-	PaymentHoldDetailss                 legacy.PaymentHoldDetails `xml:"PaymentHoldDetails"`
+	PaymentHoldDetailss                 Legacy_PaymentHoldDetails `xml:"PaymentHoldDetails"`
 	PaymentHoldStatus                   string
 	PaymentMethods                      string
-	PickupDetailss                      legacy.PickupDetails `xml:"PickupDetails"`
+	PickupDetailss                      Legacy_PickupDetails `xml:"PickupDetails"`
 	PickupMethodSelected
-	RefundArrays                        legacy.RefundArray `xml:"RefundArray"`
+	RefundArrays                        Legacy_RefundArray `xml:"RefundArray"`
 	SellerEIASToken                     string
 	SellerEmail                         string
 	SellerUserID                        string
 	ShippedTime                         string
 	//	ShippingAddress
 	ShippingConvenienceCharge           string
-	ShippingDetailss                    legacy.ShippingDetails `xml:"ShippingDetails"`
+	ShippingDetailss                    Legacy_ShippingDetails `xml:"ShippingDetails"`
 	ShippingServiceSelected             string
 	Subtotal                            string
 	Total                               float64
-	TransactionArrays                   legacy.TransactionArray `xml:"TransactionArray"`
+	TransactionArrays                   Legacy_TransactionArray `xml:"TransactionArray"`
 }
-type legacy.Transaction struct {
+type Legacy_Transaction struct {
 	//Buyer  Buyer
-	ShippingDetails     legacy.ShippingDetails
-	CreatedDate         legacy.string
-	Item                legacy.Item
+	ShippingDetails     Legacy_ShippingDetails
+	CreatedDate         Legacy_string
+	Item                Legacy_Item
 	QuantityPurchased   string
 	//	Status Status
 	TransactionID       string
@@ -137,12 +137,12 @@ type legacy.Transaction struct {
 	eBayPlusTransaction bool
 
 }
-type legacy.TransactionArray struct {
+type Legacy_TransactionArray struct {
 	XMLName      xml.Name `xml:"TransactionArray"`
-	Transactions []legacy.Transaction
+	Transactions []Legacy_Transaction
 }
 
-type legacy.PickupMethodSelected struct {
+type Legacy_PickupMethodSelected struct {
 	XMLName               xml.Name `xml:"PickupMethodSelected"`
 	MerchantPickupCode    string
 	PickupFulfillmentTime string
@@ -151,35 +151,35 @@ type legacy.PickupMethodSelected struct {
 	PickupStatus          string
 	PickupStoreID         string
 }
-type legacy.ShippingDetails struct {
-	CalculatedShippingRate legacy.CalculatedShippingRate
+type Legacy_ShippingDetails struct {
+	CalculatedShippingRate Legacy_CalculatedShippingRate
 	CODCost         string
 	InsuranceFee    string
 	InsuranceOption string
 	InsuranceWanted string
 
-	InternationalShippingServiceOption  legacy.InternationalShippingServiceOption
+	InternationalShippingServiceOption  Legacy_InternationalShippingServiceOption
 	//SellingManagerSalesRecordNumber
-	ShipmentTrackingDetails legacy.ShipmentTrackingDetails
-	ShippingServiceOptions legacy.ShippingServiceOptions
-	TaxTable legacy.TaxTable
+	ShipmentTrackingDetails Legacy_ShipmentTrackingDetails
+	ShippingServiceOptions Legacy_ShippingServiceOptions
+	TaxTable Legacy_TaxTable
 }
-type legacy.TaxJurisdiction struct {
+type Legacy_TaxJurisdiction struct {
 	JurisdictionID        string
 	SalesTaxPercent       string
 	ShippingIncludedInTax string
 }
-type legacy.TaxTable struct {
-	TaxJurisdiction legacy.TaxJurisdiction
+type Legacy_TaxTable struct {
+	TaxJurisdiction Legacy_TaxJurisdiction
 }
-type legacy.ShippingPackageInfo struct {
+type Legacy_ShippingPackageInfo struct {
 	ActualDeliveryTime       string
 	ScheduledDeliveryTimeMax string
 	ScheduledDeliveryTimeMin string
 	ShippingTrackingEvent    string
 	StoreID                  string
 }
-type legacy.ShippingServiceOptions struct {
+type Legacy_ShippingServiceOptions struct {
 	ExpeditedService              string
 	ImportCharge                  string
 	LogisticPlanType              string
@@ -189,11 +189,11 @@ type legacy.ShippingServiceOptions struct {
 	ShippingServiceCost           string
 	ShippingServicePriority       int
 }
-type legacy.ShipmentTrackingDetails struct {
+type Legacy_ShipmentTrackingDetails struct {
 	ShipmentTrackingNumber string
 	ShippingCarrierUsed    string
 }
-type legacy.InternationalShippingServiceOption struct {
+type Legacy_InternationalShippingServiceOption struct {
 	//	ImportCharge  string
 	//     ShippingInsuranceCost string
 	//     ShippingService string
@@ -204,7 +204,7 @@ type legacy.InternationalShippingServiceOption struct {
 }
 
 
-type legacy.CalculatedShippingRate struct {
+type Legacy_CalculatedShippingRate struct {
 	InternationalPackagingHandlingCosts string
 	OriginatingPostalCode               string
 	PackageDepth                        string
@@ -217,26 +217,26 @@ type legacy.CalculatedShippingRate struct {
 	WeightMinor                         string
 }
 
-type legacy.PickupOptions struct {
+type Legacy_PickupOptions struct {
 	PickupMethod   string
 	PickupPriority string
 }
 
-type legacy.RefundArray struct{}
-type legacy.PickupDetails struct {
-	PickupOptions legacy.PickupOptions
+type Legacy_RefundArray struct{}
+type Legacy_PickupDetails struct {
+	PickupOptions Legacy_PickupOptions
 }
 
-type legacy.RequiredSellerActionArray struct {
+type Legacy_RequiredSellerActionArray struct {
 	RequiredSellerAction string
 }
-type legacy.PaymentHoldDetails struct {
+type Legacy_PaymentHoldDetails struct {
 	ExpectedReleaseDate        string
 	NumOfReqSellerActions      string
 	PaymentHoldReason          string
-	RequiredSellerActionArrays legacy.RequiredSellerActionArray
+	RequiredSellerActionArrays Legacy_RequiredSellerActionArray
 }
-type legacy.ShipToAddress struct {
+type Legacy_ShipToAddress struct {
 	XMLName           xml.Name `xml:"ShipToAddress"`
 	AddressAttribute  string
 	AddressID         string
@@ -253,32 +253,32 @@ type legacy.ShipToAddress struct {
 	Street1           string
 	Street2           string
 }
-type legacy.SellerShipmentToLogisticsProvider struct {
-	ShippingServiceDetails legacy.ShippingServiceDetails
-	ShipToAddress legacy.ShipToAddress
+type Legacy_SellerShipmentToLogisticsProvider struct {
+	ShippingServiceDetails Legacy_ShippingServiceDetails
+	ShipToAddress Legacy_ShipToAddress
 	ShippingTimeMax int
 	ShippingTimeMin int
 }
-type legacy.ShippingServiceDetails struct {
+type Legacy_ShippingServiceDetails struct {
 	ShippingService   string
 	TotalShippingCost string
 }
-type legacy.MultiLegShippingDetails struct {
-	SellerShipmentToLogisticsProvider legacy.SellerShipmentToLogisticsProvider
+type Legacy_MultiLegShippingDetails struct {
+	SellerShipmentToLogisticsProvider Legacy_SellerShipmentToLogisticsProvider
 }
-type legacy.MonetaryDetails struct {
-	Payments legacy.Payments
+type Legacy_MonetaryDetails struct {
+	Payments Legacy_Payments
 	Refunds lefacy.Refunds
 }
 
-type legacy.Payments struct {
-	Payment []legacy.Payment
+type Legacy_Payments struct {
+	Payment []Legacy_Payment
 }
 
-type legacy.Refunds struct {
-	Refund legacy.Refund
+type Legacy_Refunds struct {
+	Refund Legacy_Refund
 }
-type legacy.Refund struct {
+type Legacy_Refund struct {
 	FeeOrCreditAmount  string
 	//ReferenceID       string
 	RefundAmount       string
@@ -295,14 +295,14 @@ type legacy.Refund struct {
 	TotalRefundToBuyer string
 }
 
-type legacy.SalesTax struct {
+type Legacy_SalesTax struct {
 	SalesTaxAmount        string
 	SalesTaxPercent       string
 	SalesTaxState         string
 	ShippingIncludedInTax string
 }
 
-type legacy.Payment struct {
+type Legacy_Payment struct {
 	FeeOrCreditAmount  string
 	Payee              string
 	Payer              string
@@ -313,24 +313,24 @@ type legacy.Payment struct {
 	//ReferenceID        string
 }
 
-type legacy.ExternalTransaction struct {
+type Legacy_ExternalTransaction struct {
 	ExternalTransactionID     string
 	ExternalTransactionStatus string
 	ExternalTransactionTime   string
 	FeeOrCreditAmount         string
 	PaymentOrRefundAmount     string
 }
-type legacy.BuyerPackageEnclosure struct {
+type Legacy_BuyerPackageEnclosure struct {
 	BuyerPackageEnclosureType string
 }
 
-type legacy.BuyerTaxIdentifier struct {
+type Legacy_BuyerTaxIdentifier struct {
 	Attribute string
 	ID        string
 	Type      string
 }
 
-type legacy.CancelDetail struct {
+type Legacy_CancelDetail struct {
 	CancelCompleteDate  string
 	CancelIntiationDate string
 	CancelIntiator      string
@@ -338,7 +338,7 @@ type legacy.CancelDetail struct {
 	CancelReasonDetails string
 }
 
-type legacy.CheckoutStatus struct {
+type Legacy_CheckoutStatus struct {
 	eBayPaymentStatus                   string
 	IntegratedMerchantCreditCardEnabled string
 	LastModifiedTime                    string
@@ -347,13 +347,13 @@ type legacy.CheckoutStatus struct {
 	Status                              string
 }
 
-func (o *legacy.OrderIDArray) legacy.GetOrderId(orderid string) {
+func (o *Legacy_OrderIDArray) Legacy_GetOrderId(orderid string) {
 	o.OrderID = orderid
 
 }
 
 
-func (o *legacy.GetOrdersRequest) legacy.FetchOrders(c Config) legacy.GetOrdersRequestResponse {
+func (o *Legacy_GetOrdersRequest) Legacy_FetchOrders(c Config) Legacy_GetOrdersRequestResponse {
 	o.Xmlns = "urn:ebay:apis:eBLBaseComponents"
 	o.Version = Version
 	OrdersXml, err := xml.Marshal(o)
@@ -395,7 +395,7 @@ func (o *legacy.GetOrdersRequest) legacy.FetchOrders(c Config) legacy.GetOrdersR
 
 	if err != nil {
 		colour.Println("^1 ERROR - processUrl -> req.Do: " + err.Error())
-		return legacy.GetOrdersRequestResponse{}
+		return Legacy_GetOrdersRequestResponse{}
 	}
 
 
@@ -403,14 +403,14 @@ func (o *legacy.GetOrdersRequest) legacy.FetchOrders(c Config) legacy.GetOrdersR
 
 	if err != nil {
 		colour.Println("^1 ERROR - ioutil.ReadAll : " + err.Error())
-		return legacy.GetOrdersRequestResponse{}
+		return Legacy_GetOrdersRequestResponse{}
 	}
 
-	Response := legacy.GetOrdersRequestResponse{
+	Response := Legacy_GetOrdersRequestResponse{
 
 	}
 
-	Orders := legacy.OrderArray{}
+	Orders := Legacy_OrderArray{}
 
 
 	xml.Unmarshal(data, &Response)
@@ -420,13 +420,13 @@ func (o *legacy.GetOrdersRequest) legacy.FetchOrders(c Config) legacy.GetOrdersR
 
 	if e.ShortMessage != "" {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
-		return legacy.GetOrdersRequestResponse{}
+		return Legacy_GetOrdersRequestResponse{}
 	}
 
 	return Response
 }
 
-func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestResponse {
+func (o *Legacy_GetOrdersRequest) _Legacy_FetchOrders() Legacy_GetOrdersRequestResponse {
 	o.Xmlns = "urn:ebay:apis:eBLBaseComponents"
 	o.Version = Version
 
@@ -438,7 +438,7 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if err != nil {
 		colour.Println("^1 ERROR - xml.Marshal : " + err.Error())
-		return legacy.GetOrdersRequestResponse{}
+		return Legacy_GetOrdersRequestResponse{}
 	}
 
 	xmlheader := []byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
@@ -473,7 +473,7 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if err != nil {
 		colour.Println("^1 ERROR - processUrl -> req.Do: " + err.Error())
-		return legacy.GetOrdersRequestResponse{}
+		return Legacy_GetOrdersRequestResponse{}
 	}
 
 
@@ -481,14 +481,14 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if err != nil {
 		colour.Println("^1 ERROR - ioutil.ReadAll : " + err.Error())
-		return legacy.GetOrdersRequestResponse{}
+		return Legacy_GetOrdersRequestResponse{}
 	}
 
-	Response := legacy.GetOrdersRequestResponse{
+	Response := Legacy_GetOrdersRequestResponse{
 
 	}
 
-	Orders := legacy.OrderArray{}
+	Orders := Legacy_OrderArray{}
 
 
 	xml.Unmarshal(data, &Response)
@@ -498,7 +498,7 @@ func (o *legacy.GetOrdersRequest) _legacy.FetchOrders() legacy.GetOrdersRequestR
 
 	if e.ShortMessage != "" {
 		colour.Println("^1 ERROR - " + e.ErrorCode + " : " + e.LongMessage)
-		return legacy.GetOrdersRequestResponse{}
+		return Legacy_GetOrdersRequestResponse{}
 	}
 
 	return Response

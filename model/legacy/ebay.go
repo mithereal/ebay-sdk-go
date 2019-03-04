@@ -9,19 +9,19 @@ const (
 	Version = "933"
 )
 
-type legacy.ErrorMessage struct {
+type Legacy_ErrorMessage struct {
 	XmlName xml.Name `xml:"errorMessage"`
 	Error   Error    `xml:"error"`
 }
 
-type legacy.Errors struct {
+type Legacy_Errors struct {
 	XmlName      xml.Name `xml:"Errors"`
 	ShortMessage string   `xml:"ShortMessage"`
 	LongMessage  string   `xml:"LongMessage"`
 	ErrorCode    string   `xml:"ErrorCode"`
 }
 
-type legacy.Error struct {
+type Legacy_Error struct {
 	ErrorId      string `xml:"errorId"`
 	Domain       string `xml:"domain"`
 	SeverityCode string `xml:"SeverityCode"`
@@ -33,27 +33,27 @@ type legacy.Error struct {
 	SubDomain    string `xml:"subdomain"`
 }
 
-type legacy.EBay struct {
+type Legacy_EBay struct {
 	ApplicationId string
 }
 
-type legacy.Item struct {
+type Legacy_Item struct {
 	ItemITitleD string
 	ItemID string
 	ListingDetails 
 	SellingStatus 
 }
 
-type legacy.ListingDetails struct {
+type Legacy_ListingDetails struct {
 	EndTime       string
 	StartTime       string
 	}
 
-type legacy.SellingStatus struct {
+type Legacy_SellingStatus struct {
 	CurrentPrice       string
 	}
 
-type legacy.Pagination struct {
+type Legacy_Pagination struct {
 	EntriesPerPage       string
 	OrdersPerPage        string
 	PageNumber           string
@@ -61,24 +61,24 @@ type legacy.Pagination struct {
 	TotalNumberOfPages   int
 }
 
-type legacy.RequesterCredentials struct {
+type Legacy_RequesterCredentials struct {
 	RequestToken string `xml:"eBayAuthToken"`
 }
 
-func (r *legacy.RequesterCredentials) legacy.SetToken(token string) {
+func (r *Legacy_RequesterCredentials) Legacy_SetToken(token string) {
 	r.RequestToken = token
 }
 
 
 	
-func legacy.New(application_id string) *legacy.EBay {
-	e := legacy.EBay{}
+func Legacy_New(application_id string) *Legacy_EBay {
+	e := Legacy_EBay{}
 	e.ApplicationId = application_id
 
 	return &e
 }
 
-func (p *legacy.Pagination) legacy.Setpagination(entriesperpage, pagenumber string) {
+func (p *Legacy_Pagination) Legacy_Setpagination(entriesperpage, pagenumber string) {
 	p.EntriesPerPage = entriesperpage
 	p.PageNumber = pagenumber
 }

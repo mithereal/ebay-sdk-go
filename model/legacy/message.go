@@ -1,9 +1,9 @@
 package ebay
 
-type legacy.GetMemberMessagesRequest struct {
+type Legacy_GetMemberMessagesRequest struct {
 	Xmlns string `xml:"xmlns,attr"`
 
-	RequesterCredentials legacy.RequesterCredentials `xml:"RequesterCredentials"`
+	RequesterCredentials Legacy_RequesterCredentials `xml:"RequesterCredentials"`
 
 	DisplayToPublic   string
 	EndCreationTime   string
@@ -19,10 +19,10 @@ type legacy.GetMemberMessagesRequest struct {
 	Version           string
 	WarningLevel      string
 
-	Pagination legacy.Pagination
+	Pagination Legacy_Pagination
 }
 
-type legacy.GetMemberMessagesRequestResponse struct {
+type Legacy_GetMemberMessagesRequestResponse struct {
 	Xmlns                 string `xml:"xmlns,attr"`
 	Timestamp             string
 	Ack                   string
@@ -33,33 +33,33 @@ type legacy.GetMemberMessagesRequestResponse struct {
 	CorrelationID         string
 	HardExpirationWarning string
 
-	Pagination	legacy.Pagination
-	MemberMessageExchange legacy.MemberMessageExchange
+	Pagination	Legacy_Pagination
+	MemberMessageExchange Legacy_MemberMessageExchange
 }
 
-type legacy.MemberMessageExchange struct {
+type Legacy_MemberMessageExchange struct {
 	Item             []Item
 	LastModifiedDate string
 	MessageStatus    string
 	Response         string
-	MessageMedia     []legacy.MessageMedia
-	Question legacy.Question
+	MessageMedia     []Legacy_MessageMedia
+	Question Legacy_Question
 }
 
-type legacy.MemberMessage struct {
+type Legacy_MemberMessage struct {
 	MediaName string
 	MediaURL string
 }
 
-type legacy.MessageMedia struct {
-	MemberMessageExchange []legacy.MemberMessageExchange
+type Legacy_MessageMedia struct {
+	MemberMessageExchange []Legacy_MemberMessageExchange
 }
 
-type legacy.Question struct {
+type Legacy_Question struct {
 	Body            string
 	DisplayToPublic string
 	MessageID       string
-	MessageMedia    []legacy.MessageMedia
+	MessageMedia    []Legacy_MessageMedia
 	MessageType     string
 	QuestionType    string
 	RecipientID     string

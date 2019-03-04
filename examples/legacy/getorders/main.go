@@ -31,12 +31,12 @@ func main() {
 
 	Config, _ := ebay.NewConfig(path.Join(usr.HomeDir, ".ebayapi"))
 
-	Credentials := ebay.legacy.RequesterCredentials{
+	Credentials := ebay.Legacy_RequesterCredentials{
 		RequestToken: Config.Token,
 	}
 
 
-	OrdersRequest := ebay.legacy.GetOrdersRequest{
+	OrdersRequest := ebay.Legacy_GetOrdersRequest{
 		CreateTimeFrom:       *createtimefrom,
 		CreateTimeTo:         *createtimeto,
 		DetailLevel:          "ReturnAll",

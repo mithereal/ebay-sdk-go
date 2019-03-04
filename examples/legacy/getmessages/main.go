@@ -23,11 +23,11 @@ func main() {
 
 	Config, _ := ebay.NewConfig(path.Join(usr.HomeDir, ".ebayapi"))
 
-	Credentials := ebay.legacy.RequesterCredentials{
+	Credentials := ebay.Legacy_RequesterCredentials{
 		RequestToken: Config.Token,
 	}
 
-	MemberMessagesRequest := ebay.legacy.GetMemberMessagesRequest{
+	MemberMessagesRequest := ebay.Legacy_GetMemberMessagesRequest{
 		Xmlns:             "urn:ebay:apis:eBLBaseComponents",
 		DisplayToPublic:   *DisplayToPublic,
 		EndCreationTime:   *EndCreationTime,
