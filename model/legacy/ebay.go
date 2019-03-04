@@ -1,4 +1,4 @@
-package ebay.legacy
+package ebay
 
 import (
 	"encoding/xml"
@@ -9,19 +9,19 @@ const (
 	Version = "933"
 )
 
-type ErrorMessage struct {
+type legacy.ErrorMessage struct {
 	XmlName xml.Name `xml:"errorMessage"`
 	Error   Error    `xml:"error"`
 }
 
-type Errors struct {
+type legacy.Errors struct {
 	XmlName      xml.Name `xml:"Errors"`
 	ShortMessage string   `xml:"ShortMessage"`
 	LongMessage  string   `xml:"LongMessage"`
 	ErrorCode    string   `xml:"ErrorCode"`
 }
 
-type Error struct {
+type legacy.Error struct {
 	ErrorId      string `xml:"errorId"`
 	Domain       string `xml:"domain"`
 	SeverityCode string `xml:"SeverityCode"`
@@ -33,27 +33,27 @@ type Error struct {
 	SubDomain    string `xml:"subdomain"`
 }
 
-type EBay struct {
+type legacy.EBay struct {
 	ApplicationId string
 }
 
-type Item struct {
+type legacy.Item struct {
 	ItemITitleD string
 	ItemID string
 	ListingDetails 
 	SellingStatus 
 }
 
-type ListingDetails struct {
+type legacy.ListingDetails struct {
 	EndTime       string
 	StartTime       string
 	}
 
-type SellingStatus struct {
+type legacy.SellingStatus struct {
 	CurrentPrice       string
 	}
 
-type Pagination struct {
+type legacy.Pagination struct {
 	EntriesPerPage       string
 	OrdersPerPage        string
 	PageNumber           string
@@ -62,14 +62,14 @@ type Pagination struct {
 }
 
 	
-func New(application_id string) *EBay {
-	e := EBay{}
+func legacy.New(application_id string) *legacy.EBay {
+	e := legacy.EBay{}
 	e.ApplicationId = application_id
 
 	return &e
 }
 
-func (p *Pagination) Setpagination(entriesperpage, pagenumber string) {
+func (p *legacy.Pagination) legacy.Setpagination(entriesperpage, pagenumber string) {
 	p.EntriesPerPage = entriesperpage
 	p.PageNumber = pagenumber
 }
