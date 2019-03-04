@@ -61,6 +61,15 @@ type legacy.Pagination struct {
 	TotalNumberOfPages   int
 }
 
+type legacy.RequesterCredentials struct {
+	RequestToken string `xml:"eBayAuthToken"`
+}
+
+func (r *legacy.RequesterCredentials) legacy.SetToken(token string) {
+	r.RequestToken = token
+}
+
+
 	
 func legacy.New(application_id string) *legacy.EBay {
 	e := legacy.EBay{}
